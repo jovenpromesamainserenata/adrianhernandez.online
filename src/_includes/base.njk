@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- set tituloPagina = (titulo + " · " + site.titulo) if titulo else site.titulo %}
   {%- set descripcionPagina = descripcion or site.descripcion %}
-  <title>{{ tituloPagina }}</title>
+  <title>{{ site.titulo }}</title>
+  <link rel="icon" href="/icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icono-apple.png">
   <meta name="description" content="{{ descripcionPagina }}">
   <meta property="og:title" content="{{ tituloPagina }}">
   <meta property="og:description" content="{{ descripcionPagina }}">
