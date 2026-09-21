@@ -1,0 +1,6 @@
+{#- Pestañas inferiores de /audio. `activa` es "sound-design" o "music-production". #}
+<nav class="pestanas barra-audio" aria-label="Audio categories">
+  <a class="pestana {{ 'es-activa' if activa == 'sound-design' }}" href="/audio/" {% if activa == 'sound-design' %}aria-current="page"{% endif %}>Sound design</a>
+  <span class="pestanas-separador" aria-hidden="true">|</span>
+  <a class="pestana {{ 'es-activa' if activa == 'music-production' }}" href="/audio/music-production/" {% if activa == 'music-production' %}aria-current="page"{% endif %}>Music production</a>
+</nav>

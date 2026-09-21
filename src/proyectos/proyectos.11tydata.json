@@ -1,0 +1,12 @@
+{
+  "layout": "proyecto.njk",
+  "claseBody": "pagina-proyecto",
+  "tituloArriba": true,
+  "pagination": {
+    "data": "seccion",
+    "size": 1,
+    "alias": "seccionActual",
+    "addAllPagesToCollections": true
+  },
+  "permalink": "/{{ seccionActual }}/{{ page.fileSlug }}/"
+}

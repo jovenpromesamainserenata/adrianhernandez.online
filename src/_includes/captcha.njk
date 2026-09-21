@@ -1,0 +1,17 @@
+{#- Captcha falso de la portada. El clic sirve para que el navegador
+    deje sonar el hover de audio en /audio/. Solo sale una vez por visita. -#}
+<div class="captcha" data-captcha>
+  <button class="captcha-caja" type="button" data-captcha-boton aria-label="I can be anything you want">
+    <span class="captcha-casilla">
+      <svg class="captcha-tick" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.5 12.5 L9.5 18.5 L20.5 5.5"/>
+      </svg>
+    </span>
+    <span class="captcha-texto">I can be anything you want</span>
+    <span class="captcha-marca">
+      {% include "icono-captcha.svg" %}
+      <span class="captcha-marca-nombre">reCAPTCHA</span>
+      <span class="captcha-marca-legal">Privacy - Terms</span>
+    </span>
+  </button>
+</div>

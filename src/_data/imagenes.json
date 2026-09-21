@@ -1,0 +1,576 @@
+{
+  "4ever/portada-audio": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "4ever/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "aove-tour/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "aove-tour/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "aove-tour/03": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "aove-tour/04": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "aove-tour/05": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2000,
+    "alto": 2201
+  },
+  "aove-tour/06": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3508,
+    "alto": 1595
+  },
+  "aove-tour/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "bomarzo-tremor/portada": {
+    "anchos": [
+      592
+    ],
+    "ancho": 592,
+    "alto": 448
+  },
+  "bruised-by-baby-bullets/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2558,
+    "alto": 3410
+  },
+  "bruised-by-baby-bullets/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "bruised-by-baby-bullets/portada-audio": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "bruised-by-baby-bullets/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "citrus-rug/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2560,
+    "alto": 1440
+  },
+  "citrus-rug/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2560,
+    "alto": 1440
+  },
+  "citrus-rug/03": {
+    "anchos": [
+      600,
+      730
+    ],
+    "ancho": 730,
+    "alto": 1000
+  },
+  "citrus-rug/portada": {
+    "anchos": [
+      600,
+      1000
+    ],
+    "ancho": 1000,
+    "alto": 730
+  },
+  "cocky/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "cocky/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2639,
+    "alto": 1218
+  },
+  "cocky/portada-audio": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "cocky/portada-image": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "desigual/portada": {
+    "anchos": [
+      600,
+      1080
+    ],
+    "ancho": 1080,
+    "alto": 810
+  },
+  "dior-sauvage/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "doncella/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3240,
+    "alto": 2160
+  },
+  "doncella/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3240,
+    "alto": 2160
+  },
+  "doncella/03": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3240,
+    "alto": 2160
+  },
+  "doncella/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "fiesta/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 4000,
+    "alto": 4000
+  },
+  "fiesta/portada": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2000,
+    "alto": 2000
+  },
+  "fiesta/tarjeta-1": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2550,
+    "alto": 1650
+  },
+  "fiesta/tarjeta-2": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2550,
+    "alto": 1650
+  },
+  "hoff-city-mkii/portada": {
+    "anchos": [
+      600,
+      1200,
+      1920
+    ],
+    "ancho": 1920,
+    "alto": 1080
+  },
+  "in-the-flesh/portada": {
+    "anchos": [
+      600,
+      1080
+    ],
+    "ancho": 1080,
+    "alto": 810
+  },
+  "joven-promesa-main-serenata/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "joven-promesa-main-serenata/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3060,
+    "alto": 2448
+  },
+  "joven-promesa-main-serenata/03": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 6528,
+    "alto": 2448
+  },
+  "joven-promesa-main-serenata/04": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 4896,
+    "alto": 3264
+  },
+  "joven-promesa-main-serenata/05": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 4284,
+    "alto": 5712
+  },
+  "joven-promesa-main-serenata/06": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2160,
+    "alto": 1350
+  },
+  "joven-promesa-main-serenata/07": {
+    "anchos": [
+      600,
+      1200,
+      1536
+    ],
+    "ancho": 1536,
+    "alto": 2048
+  },
+  "joven-promesa-main-serenata/08": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2448,
+    "alto": 3061
+  },
+  "joven-promesa-main-serenata/pelota": {
+    "anchos": [
+      320
+    ],
+    "ancho": 320,
+    "alto": 320
+  },
+  "joven-promesa-main-serenata/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "juggler-duties/portada": {
+    "anchos": [
+      600,
+      640
+    ],
+    "ancho": 640,
+    "alto": 480
+  },
+  "la-noche-mas-calurosa-del-ano/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2400,
+    "alto": 3000
+  },
+  "la-noche-mas-calurosa-del-ano/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2400,
+    "alto": 3000
+  },
+  "la-noche-mas-calurosa-del-ano/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "lento-rapido/portada": {
+    "anchos": [
+      600,
+      1200,
+      1400
+    ],
+    "ancho": 1400,
+    "alto": 1400
+  },
+  "musica-de-baile-para-amansar-a-las-fieras/01": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1080
+  },
+  "musica-de-baile-para-amansar-a-las-fieras/02": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1080
+  },
+  "musica-de-baile-para-amansar-a-las-fieras/03": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3264,
+    "alto": 2448
+  },
+  "musica-de-baile-para-amansar-a-las-fieras/04": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3264,
+    "alto": 2448
+  },
+  "musica-de-baile-para-amansar-a-las-fieras/portada-image": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2448,
+    "alto": 1836
+  },
+  "musica-de-baile-para-amansar-a-las-fieras/portada": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "nena/portada": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "pat-equilux-fw26/portada": {
+    "anchos": [
+      600,
+      1200,
+      1920
+    ],
+    "ancho": 1920,
+    "alto": 1080
+  },
+  "plutos-6th-birthday/portada": {
+    "anchos": [
+      600,
+      1200,
+      1300
+    ],
+    "ancho": 1300,
+    "alto": 975
+  },
+  "primerob/01": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2990,
+    "alto": 2990
+  },
+  "primerob/02": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 2990,
+    "alto": 2990
+  },
+  "primerob/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  },
+  "recreo/portada": {
+    "anchos": [
+      600,
+      1200,
+      2000
+    ],
+    "ancho": 3000,
+    "alto": 3000
+  },
+  "whats-love-got-to-do-with-anything/01": {
+    "anchos": [
+      600,
+      941
+    ],
+    "ancho": 941,
+    "alto": 1176
+  },
+  "whats-love-got-to-do-with-anything/02": {
+    "anchos": [
+      600,
+      1080
+    ],
+    "ancho": 1080,
+    "alto": 1350
+  },
+  "whats-love-got-to-do-with-anything/portada": {
+    "anchos": [
+      600,
+      1200,
+      1600
+    ],
+    "ancho": 1600,
+    "alto": 1200
+  }
+}

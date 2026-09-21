@@ -1,0 +1,186 @@
+---
+layout: base.njk
+---
+{%- set listas = page.url | listasDe(collections) %}
+<script>
+  // Cada página de proyecto es de una sola sección, así que `data-desde` lo marca la propia
+  // página y ya no depende de por dónde se haya llegado (Adrián, 21/09/2026).
+  // Lo que sí sigue dependiendo del listado es cuál de las dos pestañas de audio queda activa
+  // y a qué proyectos llevan las flechas.
+  (function () {
+    var listas = {{ listas | dump | safe }};
+    var lista = listas[0] || "";
+    try {
+      var ultima = sessionStorage.getItem("lista");
+      if (listas.indexOf(ultima) > -1) lista = ultima;
+    } catch (e) {}
+    var html = document.documentElement;
+    html.dataset.lista = lista;
+    html.dataset.desde = "{{ seccionActual }}";
+  })();
+</script>
+<main class="proyecto con-pestanas">
+  {#- En Music production la portada es la carátula del disco, así que también se enseña dentro de
+      la ficha, lo primero de todo (Adrián, 21/09/2026). Es la excepción: en el resto de la web la
+      portada solo sale en los listados. #}
+  {%- set caratula = portada | portadaEn(seccionActual) if seccionActual == "audio" and (categoria | incluye("music-production")) %}
+  {%- if caratula %}
+  <div class="media">{% imagen caratula, titulo, "(min-width: 700px) 34vw, 90vw" %}</div>
+  {%- endif %}
+  {%- if video %}
+    {%- if "://" in video %}
+  <div class="media media-video">
+    <iframe src="{{ video | incrustar }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="{{ titulo }}"></iframe>
+  </div>
+    {%- else %}
+  {% video video, titulo %}
+    {%- endif %}
+  {%- endif %}
+
+  {#- En la galería cada elemento es una imagen ("proyecto/01") o un vídeo:
+      - video: 4ever/video-01   (vídeo propio, subido a R2; la proporción sale sola)
+      - video: https://vimeo.com/123456789   (o un enlace de YouTube)
+        proporcion: 4/3   (opcional, 16/9 si no se pone; solo para Vimeo y YouTube)
+      Una imagen con poca resolución se puede mostrar más pequeña:
+      - imagen: proyecto/03
+        ancho: 60%        (respecto al ancho normal)
+        capa: delante     (pasa por delante del carrusel fijo; por defecto pasa por detrás)
+      Una imagen que al pasar el ratón enseña otra en su lugar, de la misma proporción:
+      - imagen: proyecto/03
+        hover: proyecto/04
+      Una tarjeta que gira sobre sí misma, con sus dos caras:
+      - tarjeta: [proyecto/tarjeta-1, proyecto/tarjeta-2]
+        ancho: 65%        (opcional, respecto al ancho normal)
+      Gira sola despacio y se puede girar arrastrando (src/js/tarjeta.js). #}
+  {%- macro pintarGaleria(lista, titulo) %}
+  {%- for elemento in lista %}
+    {%- if elemento.video and not ("://" in elemento.video) %}
+  {% video elemento.video, titulo %}
+    {%- elif elemento.video %}
+  <div class="media media-video" style="--proporcion: {{ elemento.proporcion or '16/9' }}">
+    <iframe src="{{ elemento.video | incrustar }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="{{ titulo }}" loading="lazy"></iframe>
+  </div>
+    {%- elif elemento.carrusel %}
+  <div class="carrusel-marco">
+    <div class="carrusel" data-carrusel>
+      {%- for ruta in elemento.carrusel %}
+      <div class="carrusel-pieza">{% imagen ruta, titulo, "(min-width: 700px) 40vw, 80vw" %}</div>
+      {%- endfor %}
+    </div>
+  </div>
+    {%- elif elemento.tarjeta %}
+  <div class="media media-tarjeta" style="--ancho-tarjeta: {{ elemento.ancho or '65%' }}" data-tarjeta>
+    <div class="tarjeta">
+      <div class="tarjeta-cara">{% imagen elemento.tarjeta[0], titulo, "(min-width: 700px) 30vw, 75vw" %}</div>
+      <div class="tarjeta-cara tarjeta-dorso">{% imagen elemento.tarjeta[1], titulo, "(min-width: 700px) 30vw, 75vw" %}</div>
+    </div>
+  </div>
+    {%- elif elemento.imagen and elemento.hover %}
+  <div class="media media-hover" style="--ancho-imagen: {{ elemento.ancho or '100%' }}">
+    {% imagen elemento.imagen, titulo, "(min-width: 700px) 34vw, 90vw" %}
+    {% imagen elemento.hover, "", "(min-width: 700px) 34vw, 90vw", "hover-cara" %}
+  </div>
+    {%- elif elemento.imagen %}
+  <div class="media{% if elemento.capa == 'delante' %} media-delante{% endif %}" style="--ancho-imagen: {{ elemento.ancho or '100%' }}">{% imagen elemento.imagen, titulo, "(min-width: 700px) 34vw, 90vw" %}</div>
+    {%- else %}
+  <div class="media">{% imagen elemento, titulo, "(min-width: 700px) 34vw, 90vw" %}</div>
+    {%- endif %}
+  {%- endfor %}
+  {%- endmacro %}
+
+  {#- Bloque de créditos: una línea vacía dentro de la lista abre un grupo nuevo, con su propio hueco. #}
+  {%- macro pintarCreditos(datos, colaboradores, enlace) %}
+    {%- if datos.length or colaboradores.length or enlace %}
+  <div class="proyecto-texto">
+      {%- for grupo in (datos | grupos) %}
+    <ul class="proyecto-datos">
+      {%- for linea in grupo %}<li>{{ linea }}</li>{% endfor %}
+    </ul>
+      {%- endfor %}
+      {%- for grupo in (colaboradores | grupos) %}
+    <ul class="proyecto-datos">
+      {%- for linea in grupo %}<li>{{ linea }}</li>{% endfor %}
+    </ul>
+      {%- endfor %}
+      {%- if enlace %}
+    <p><a href="{{ enlace.url }}" target="_blank" rel="noopener">{{ enlace.texto or "Listen" }}</a></p>
+      {%- endif %}
+  </div>
+    {%- endif %}
+  {%- endmacro %}
+
+  {{ pintarGaleria(galeria, titulo) }}
+
+  {#- Material de esta sección. Un proyecto que está en las dos tiene una página por sección
+      y cada una enseña solo lo suyo (Adrián, 21/09/2026):
+        partes:
+          image: [...]
+          audio: [...]
+      Si la sección todavía no tiene material, bloque gris. #}
+  {%- set suDatos = datos | deSeccion(seccionActual) %}
+  {%- set suColaboradores = colaboradores | deSeccion(seccionActual) %}
+  {%- if partes %}
+    {%- if partes[seccionActual] %}
+  {{- pintarGaleria(partes[seccionActual], titulo) }}
+    {%- elif not caratula %}
+  <div class="media">{% imagen "" %}</div>
+    {%- endif %}
+  {%- endif %}
+
+  {#- Sin material todavía: bloque gris. Fuera de Music production, la portada solo sale en los listados. #}
+  {%- if not video and not galeria and not partes and not caratula %}
+  <div class="media">{% imagen "" %}</div>
+  {%- endif %}
+
+  {{ pintarCreditos(suDatos, suColaboradores, enlace | enlaceDe(seccionActual)) }}
+  {%- if content | trim %}
+  <div class="proyecto-texto">{{ content | safe }}</div>
+  {%- endif %}
+</main>
+{%- if seccionActual == "audio" %}
+  {%- set activa = "music-production" if (categoria | incluye("music-production")) and not (categoria | incluye("sound-design")) else "sound-design" %}
+  {% include "pestanas.njk" %}
+{%- endif %}
+{%- if seccionActual == "image" %}
+<nav class="pestanas pestanas-una barra-image" aria-label="Image">
+  <a class="pestana" href="/image/">Image</a>
+</nav>
+{%- endif %}
+
+{#- Flechas para pasar al proyecto anterior o siguiente del mismo listado (en bucle, como el scroll). #}
+{%- for nombre in listas %}
+  {%- set v = page.url | vecinos(collections, nombre) %}
+  {%- if v %}
+<nav class="flechas" data-lista="{{ nombre }}" aria-label="More projects">
+  <a class="flecha flecha-anterior" href="{{ v.anterior.url }}" aria-label="Previous: {{ v.anterior.data.titulo }}" data-flecha="anterior">&lt;</a>
+  <a class="flecha flecha-siguiente" href="{{ v.siguiente.url }}" aria-label="Next: {{ v.siguiente.data.titulo }}" data-flecha="siguiente">&gt;</a>
+</nav>
+  {%- endif %}
+{%- endfor %}
+{#- Pelota de tenis: con el campo `pelota` (ruta de la imagen), al hacer clic en
+    cualquier sitio de la ficha sale una pelota desde el ratón y rebota por la
+    pantalla (src/js/pelota.js). Se usa en Joven Promesa Main Serenata. #}
+{%- if pelota %}
+<div class="pelotas" data-pelotas aria-hidden="true">
+  <template>
+    <div class="pelota">
+      <div class="pelota-cara">{% imagen pelota, "", "60px" %}</div>
+      <div class="pelota-esfera"><div class="pelota-luz"></div><div class="pelota-umbra"></div></div>
+    </div>
+  </template>
+</div>
+<script src="/js/pelota.js"></script>
+{%- endif %}
+<script src="/js/carrusel.js"></script>
+<script src="/js/tarjeta.js"></script>
+<script src="/js/reproductor.js"></script>
+<script>
+  // También con las flechas del teclado.
+  document.addEventListener("keydown", function (e) {
+    var tecla = { ArrowLeft: "anterior", ArrowRight: "siguiente" }[e.key];
+    if (!tecla || e.altKey || e.metaKey || e.ctrlKey) return;
+    var nav = document.querySelector('.flechas[data-lista="' + document.documentElement.dataset.lista + '"]');
+    var enlace = nav && nav.querySelector('[data-flecha="' + tecla + '"]');
+    if (enlace) location.href = enlace.href;
+  });
+</script>

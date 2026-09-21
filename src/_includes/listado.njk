@@ -1,0 +1,20 @@
+{#- Lista de proyectos con scroll infinito. Recibe `proyectos`. #}
+<script>
+  try {
+    sessionStorage.setItem("seccion", "{{ seccionListado }}");
+    sessionStorage.setItem("lista", "{{ listaListado }}");
+  } catch {}
+</script>
+<main class="listado">
+  <ul class="filas" data-scroll-infinito>
+    {%- for proyecto in proyectos %}
+    <li>
+      <a class="fila" href="{{ proyecto.url }}" {% if proyecto.data.preview %}data-preview="/media/{{ proyecto.data.preview }}"{% endif %}>
+        <span class="fila-titulo">{{ proyecto.data.titulo }}</span>
+        {% imagen proyecto.data.portada | portadaEn(seccionListado), "", "130px", "fila-miniatura" %}
+        <span class="fila-anio">({{ proyecto.data.anio }})</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</main>

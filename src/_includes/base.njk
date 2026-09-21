@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- set tituloPagina = (titulo + " · " + site.titulo) if titulo else site.titulo %}
+  {%- set descripcionPagina = descripcion or site.descripcion %}
+  <title>{{ tituloPagina }}</title>
+  <meta name="description" content="{{ descripcionPagina }}">
+  <meta property="og:title" content="{{ tituloPagina }}">
+  <meta property="og:description" content="{{ descripcionPagina }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="preload" href="/fuentes/rotis-sans-serif.woff2" as="font" type="font/woff2" crossorigin>
+  {%- if fuentesGoogle %}
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{{ fuentesGoogle }}&text=Image&display=block">
+  {%- endif %}
+  {%- if fuenteCaptcha %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&text={{ fuenteCaptcha | urlencode }}&display=block">
+  {%- endif %}
+  <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body class="{{ claseBody }}">
+  {%- if not sinAbout %}
+  <a class="esquina esquina-izquierda" href="/">{{ site.titulo }}</a>
+  {%- if tituloArriba and titulo %}
+  <h1 class="esquina esquina-centro"><span>{{ titulo }} <span class="proyecto-anio">({{ anio }})</span></span></h1>
+  {%- endif %}
+  <div class="esquina esquina-derecha">
+    <a href="/about/">About</a>
+  </div>
+  {%- endif %}
+
+  {{ content | safe }}
+
+  {%- for script in scripts %}
+  <script src="/js/{{ script }}.js"></script>
+  {%- endfor %}
+</body>
+</html>

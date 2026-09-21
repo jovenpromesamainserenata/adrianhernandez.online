@@ -1,0 +1,12 @@
+---
+layout: base.njk
+listaListado: image
+seccionListado: image
+permalink: /image/
+titulo: Image
+descripcion: Graphic design and creative direction by Adrián Hernández.
+claseBody: pagina-listado
+scripts: [scroll-infinito]
+---
+{%- set proyectos = collections.image %}
+{% include "listado.njk" %}

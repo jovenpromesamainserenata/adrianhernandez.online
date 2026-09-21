@@ -1,0 +1,14 @@
+---
+layout: base.njk
+listaListado: sound-design
+seccionListado: audio
+permalink: /audio/
+titulo: Sound design
+descripcion: Sound design by Adrián Hernández.
+claseBody: pagina-listado con-pestanas
+scripts: [scroll-infinito, sonido]
+---
+{%- set proyectos = collections.soundDesign %}
+{% include "listado.njk" %}
+{%- set activa = "sound-design" %}
+{% include "pestanas.njk" %}

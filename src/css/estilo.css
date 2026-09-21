@@ -1,0 +1,754 @@
+/* ==========================================================================
+   Web de Adrián Hernández
+   Todo el aspecto se controla desde las variables de :root.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Rotis Sans Serif";
+  src: url("/fuentes/rotis-sans-serif.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  /* Color */
+  --fondo: #bbbbbb;
+  --gris-medio: #999999;      /* miniaturas, pestaña inactiva, texto del About */
+  --gris-texto: #dadada;      /* títulos y años de los listados */
+  --blanco: #ffffff;
+  --amarillo: #d5ff00;
+  --amarillo-oscuro: #8fae00;  /* segundo tono del logo del captcha */
+  --captcha-fondo: #f9f9f9;
+  --captcha-borde: #d3d3d3;
+  --captcha-tinta: #3c3c3c;
+
+  /* Tipografía */
+  --fuente: "Rotis Sans Serif", "Helvetica Neue", Arial, sans-serif;
+  --fuente-captcha: Roboto, var(--fuente);  /* solo la marca del captcha, como el original */
+  --texto: clamp(17px, 1.25vw, 24px);
+  --interlineado: 1.3;
+  --subrayado-grosor: 0.06em;
+  --subrayado-separacion: 0.12em;
+
+  /* Espacios y medidas */
+  --margen: clamp(16px, 3.2vw, 64px);
+  --barra-alto: clamp(44px, 3vw, 60px);
+  /* Distancia de los textos de las esquinas al borde: la misma arriba que a los lados. */
+  --esquina-borde: calc((var(--barra-alto) - 1em) / 2);
+  --miniatura-ancho: clamp(84px, 6.4vw, 128px);
+  --miniatura-proporcion: 4 / 3;
+  --fila-hueco: clamp(16px, 1.6vw, 32px);      /* entre título, miniatura y año */
+  --fila-separacion: clamp(24px, 2.4vw, 48px); /* entre filas */
+  --media-ancho: max(34vw, min(90vw, 560px));
+  --carrusel-pieza: 16vw;      /* ancho de cada pieza de la tira horizontal, y su alto */
+  --alto-max: 76vh;
+  --about-ancho: 21em;
+  --captcha-ancho: 23em;
+}
+
+/* Base
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Sin barra de scroll visible: con el scroll infinito no indica nada. Se sigue pudiendo hacer scroll. */
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar { display: none; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--blanco);
+  font-family: var(--fuente);
+  font-size: var(--texto);
+  line-height: var(--interlineado);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--amarillo); color: var(--gris-medio); }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: var(--subrayado-grosor);
+  text-underline-offset: var(--subrayado-separacion);
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.hueco { background: var(--gris-medio); }
+
+/* Esquinas fijas: nombre (vuelve a la portada) a la izquierda;
+   About (o la x del About) a la derecha. El botón "Sound on/off" se quitó el 21/09/2026:
+   en un portfolio de sonido no tiene sentido poder apagar el audio (Adrián)
+   ========================================================================== */
+
+.esquina {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  /* Misma altura que la barra inferior y texto centrado en ella, para que arriba y abajo queden simétricos. */
+  height: var(--barra-alto);
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.esquina-izquierda { left: var(--esquina-borde); }
+/* Título de la ficha de proyecto, clavado arriba y centrado en la pantalla (Adrián, 21/09/2026).
+   Se centra respecto a la pantalla, no al hueco libre, para que quede a plomo con las pestañas
+   de abajo. Los 9em de cada lado son el sitio que ocupan "Adrián Hernández" y "About". */
+.esquina-centro {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - var(--esquina-borde) * 2 - 9em * 2);
+  font-size: inherit;
+  font-weight: inherit;
+}
+/* El recorte va en el span y no en el h1: así el h1 conserva el alto y el centrado de .esquina
+   y el título queda a la misma altura que "Adrián Hernández" y "About". */
+.esquina-centro > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.esquina-derecha {
+  right: var(--esquina-borde);
+  display: flex;
+  gap: 1.5em;
+}
+
+.esquina-izquierda:hover,
+a.esquina-derecha:hover,
+.esquina-derecha a:hover { color: var(--amarillo); }
+
+/* Portada
+   ========================================================================== */
+
+.portada {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.mitad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--amarillo);
+  background: var(--fondo);
+}
+.mitad:hover { color: var(--gris-medio); background: var(--amarillo); }
+
+@media (max-width: 700px) and (orientation: portrait) {
+  .portada { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+}
+
+/* Captcha falso de la portada
+   ========================================================================== */
+
+/* Ya pasado en esta visita: ni se pinta (la clase la pone un script en el head). */
+.captcha-visto .captcha { display: none; }
+
+.captcha {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--margen);
+  background: var(--fondo);
+  transition: opacity 450ms ease;
+}
+.captcha-fuera { opacity: 0; pointer-events: none; }
+
+.captcha-caja {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  width: min(100%, var(--captcha-ancho));
+  margin: 0;
+  padding: 0.78em 0.9em;
+  border: 1px solid var(--captcha-borde);
+  border-radius: 3px;
+  background: var(--captcha-fondo);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
+  color: var(--captcha-tinta);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.captcha-caja:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 4px; }
+.captcha-caja:disabled { cursor: default; }
+
+.captcha-casilla {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.55em;
+  height: 1.55em;
+  border: 2px solid #b4b4b4;
+  background: var(--blanco);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+.captcha-hecho .captcha-casilla { border-color: transparent; background: transparent; }
+
+.captcha-tick {
+  width: 130%;
+  height: 130%;
+  fill: none;
+  stroke: var(--amarillo);
+  stroke-width: 3.2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-dasharray: 34;
+  stroke-dashoffset: 34;
+}
+.captcha-hecho .captcha-tick {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 320ms ease-out;
+}
+
+.captcha-texto { flex: 1; }
+
+/* Columna de marca de la derecha: logo, nombre y la letra pequeña, como en el original. */
+.captcha-marca {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  color: var(--gris-medio);
+  font-family: var(--fuente-captcha);
+  line-height: 1.15;
+}
+.captcha-logo { width: 1.9em; height: 1.9em; }
+.captcha-marca-nombre { font-size: 0.6em; }
+.captcha-marca-legal { font-size: 0.48em; }
+.captcha-flecha-clara { fill: var(--amarillo); }
+.captcha-flecha-oscura { fill: var(--amarillo-oscuro); }
+.captcha-flecha-gris { fill: var(--gris-medio); }
+
+@media (prefers-reduced-motion: reduce) {
+  .captcha, .captcha-casilla, .captcha-hecho .captcha-tick { transition-duration: 1ms; }
+}
+
+/* Listados con scroll infinito
+   ========================================================================== */
+
+.listado { padding: var(--fila-separacion) var(--margen); }
+.con-pestanas .listado { padding-bottom: calc(var(--barra-alto) + var(--fila-separacion)); }
+
+.filas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fila-separacion);
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 1fr var(--miniatura-ancho) 1fr;
+  align-items: center;
+  column-gap: var(--fila-hueco);
+  color: var(--gris-texto);
+  text-decoration: none;
+}
+.fila:hover { color: var(--blanco); }
+
+.fila-titulo { text-align: right; }
+.fila-anio { text-align: left; }
+
+.fila-miniatura {
+  width: 100%;
+  aspect-ratio: var(--miniatura-proporcion);
+  object-fit: cover;
+}
+
+/* Music production: miniaturas cuadradas, mismo ancho. */
+.listado-cuadrado .fila-miniatura { aspect-ratio: 1; }
+
+
+/* Pestañas inferiores de /audio
+   ========================================================================== */
+
+.pestanas {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;  /* la barra "|" queda en el centro exacto */
+  align-items: center;
+  column-gap: calc(var(--fila-hueco) / 2);
+  height: var(--barra-alto);
+  /* Fondo transparente: solo los textos reciben clics, lo que pasa por debajo sigue accesible. */
+  pointer-events: none;
+}
+
+.pestana {
+  pointer-events: auto;
+  line-height: 1;
+  color: var(--gris-texto);
+}
+.pestana:first-child { justify-self: end; }
+.pestana:last-child { justify-self: start; }
+.pestanas-separador { color: var(--gris-texto); line-height: 1; }
+
+/* Pestaña en la que estás: en blanco. */
+.pestana.es-activa { color: var(--blanco); }
+
+.pestana:not(.es-activa):hover,
+.pagina-proyecto .pestana:hover { color: var(--amarillo); }
+
+/* Dentro de un proyecto solo se ve la barra de la sección desde la que se llega. */
+html:not([data-desde="audio"]) .pagina-proyecto .barra-audio,
+html:not([data-desde="image"]) .pagina-proyecto .barra-image { display: none; }
+
+/* Barra de Image: una sola palabra centrada que vuelve al listado. */
+.pestanas-una { grid-template-columns: 1fr; }
+.pestanas-una .pestana:first-child { justify-self: center; color: var(--blanco); }
+.pestanas-una .pestana:first-child:hover { color: var(--amarillo); }
+
+/* Ficha de proyecto
+   ========================================================================== */
+
+.proyecto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fila-separacion);
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--margen) * 2 + 1em) var(--margen);
+}
+/* Hueco entre el final del texto y el borde de abajo: la barra inferior más un margen.
+   Para dejar más o menos aire, cambiar el multiplicador del margen. */
+.proyecto.con-pestanas { padding-bottom: calc(var(--barra-alto) + var(--margen) * 0.5); }
+
+.media {
+  width: var(--media-ancho);
+  max-width: 100%;
+}
+/* Todas las imágenes al mismo ancho, también las verticales (aunque pasen del alto de la pantalla). */
+.media img,
+.media .hueco {
+  width: var(--ancho-imagen, 100%);
+  height: auto;
+  margin-inline: auto;
+}
+.media .hueco { aspect-ratio: var(--miniatura-proporcion); }
+
+/* Imagen con hover: la segunda ocupa el mismo sitio que la primera (misma proporción) y aparece
+   encima con el ratón. Solo con ratón: en pantallas táctiles se ve la primera (Adrián, 21/09/2026). */
+.media-hover { position: relative; }
+.media-hover .hover-cara {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+@media (hover: hover) {
+  .media-hover:hover .hover-cara { opacity: 1; }
+}
+
+/* Cada vídeo lleva su proporción en --proporcion. Mismo ancho que las imágenes
+   y sin pasar de --alto-max de alto. */
+.media-video {
+  --proporcion: 16/9;
+  width: min(100%, var(--media-ancho), calc(var(--alto-max) * (var(--proporcion))));
+  aspect-ratio: var(--proporcion);
+}
+.media-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* Reproductor propio (vídeos en R2, 18/09/2026). Controles sueltos sobre el vídeo, sin ningún
+   recuadro detrás, y lo mínimo posible (Adrián, 21/09/2026): solo la pantalla completa abajo a la
+   derecha y la línea de avance pegada al borde de abajo del todo, de lado a lado. El tiempo en
+   números se quitó (con la línea se entiende por dónde va), el botón de play de la barra también
+   (el clic en el vídeo ya reproduce y para, y mientras está parado está el triángulo del centro)
+   y el sonido no se toca desde ningún sitio: los vídeos suenan siempre. Todo blanco, apagado, y
+   blanco del todo con el ratón encima; el hover es solo ese salto de opacidad, nada cambia de
+   tamaño. El play del centro y la pantalla completa comparten la opacidad de base
+   (--control-opacidad), para que no haya dos blancos distintos. La línea, blanca desde el
+   21/09/2026 (antes amarilla, el acento de Vimeo). Se probó una sombra suave para que los
+   controles no se perdieran en los fotogramas claros y Adrián la descartó. Ángulo recto. */
+.reproductor {
+  --proporcion: 16/9;
+  --control-alto: clamp(24px, 2vw, 30px);   /* zona de clic de los botones; el icono es la mitad */
+  --control-borde: clamp(8px, 0.9vw, 13px); /* separación de los controles al borde del vídeo */
+  --linea-alto: 3px;                        /* grosor de la línea de avance, pegada abajo */
+  --control-opacidad: 0.55;                 /* la misma para el play del centro y la pantalla completa */
+  --marca-ancho: clamp(42px, 4.4vw, 64px);  /* play del centro */
+  width: min(100%, var(--media-ancho), calc(var(--alto-max) * (var(--proporcion))));
+}
+.reproductor-pantalla {
+  position: relative;
+  aspect-ratio: var(--proporcion);
+  background: var(--gris-medio);
+  overflow: hidden;
+}
+.reproductor video { width: 100%; height: 100%; display: block; object-fit: cover; cursor: pointer; }
+
+/* Los controles ocupan todo el vídeo y cada uno se clava en su esquina; el hueco de en medio
+   no recibe clics, para que lleguen al vídeo y lo reproduzcan o lo paren. */
+.reproductor-controles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--blanco);
+  transition: opacity 0.25s;
+}
+.reproductor-controles > * {
+  position: absolute;
+  pointer-events: auto;
+  opacity: var(--control-opacidad);
+  transition: opacity 0.2s;
+}
+.reproductor-controles > *:hover { opacity: 1; }
+.reproductor.es-oculto .reproductor-controles { opacity: 0; pointer-events: none; }
+.reproductor.es-reproduciendo.es-oculto video { cursor: none; }
+
+/* La pantalla completa, abajo a la derecha. Va por encima de la franja de agarre de la línea
+   (que es más alta que la línea) para que no le robe los clics. */
+.reproductor-boton {
+  right: var(--control-borde);
+  bottom: calc(var(--control-borde) + var(--linea-alto));
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+.reproductor svg { display: block; width: calc(var(--control-alto) * 0.5); height: auto; }
+
+/* Marca de play: el triángulo del centro del vídeo, para que se vea de lejos que es un vídeo
+   (Adrián, 20/09/2026). Desde el 21/09/2026 va suelto, sin el recuadro oscuro, y algo más pequeño
+   que el hueco que ocupaba el botón con caja. Es solo un aviso: no recibe clics, los recoge el
+   vídeo de debajo, que ya reproduce y pausa. Está mientras el vídeo no se reproduce y se desvanece
+   al darle al play. Con el ratón en cualquier sitio del vídeo se pone blanco del todo. */
+.reproductor-marca {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--marca-ancho);
+  height: var(--marca-ancho);
+  transform: translate(-50%, -50%);
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: var(--control-opacidad);
+  pointer-events: none;   /* el clic lo recoge el vídeo de debajo */
+  transition: opacity 0.3s, transform 0.3s;
+}
+.reproductor-pantalla:hover .reproductor-marca { opacity: 1; }
+.reproductor-marca svg { width: 76%; }   /* sin recuadro, el triángulo es casi toda la marca */
+.reproductor.es-reproduciendo .reproductor-marca,
+.reproductor.es-reproduciendo .reproductor-pantalla:hover .reproductor-marca {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* La línea: pegada al borde de abajo y de lado a lado (Adrián, 21/09/2026). La franja que recibe
+   el clic es más alta que la línea para poder agarrarla sin apurar el píxel. */
+.reproductor-linea {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  opacity: 1;
+  cursor: pointer;
+  touch-action: none;
+}
+.reproductor-linea::before,
+.reproductor-cargado,
+.reproductor-avance {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: var(--linea-alto);
+  transition: height 0.15s;
+}
+.reproductor-linea::before { right: 0; background: rgba(255, 255, 255, 0.32); }
+.reproductor-cargado { width: 0; background: rgba(255, 255, 255, 0.5); }
+.reproductor-avance { width: 0; background: var(--blanco); }
+.reproductor-linea:hover::before,
+.reproductor-linea:hover .reproductor-cargado,
+.reproductor-linea:hover .reproductor-avance { height: 6px; }
+.reproductor :focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+
+/* Pantalla completa: el vídeo entero sobre negro, con los mismos controles. */
+.reproductor-pantalla:fullscreen { background: #000; }
+.reproductor-pantalla:-webkit-full-screen { background: #000; width: 100%; height: 100%; }
+.reproductor-pantalla:fullscreen video { object-fit: contain; }
+.reproductor-pantalla:-webkit-full-screen video { object-fit: contain; }
+
+@media (max-width: 699px) {
+  .reproductor-controles { font-size: 12px; }
+}
+
+/* Tarjeta que gira (Juguete, 18/09/2026): las dos caras del PDF, una por delante y otra por detrás.
+   Va inclinada en diagonal (--tarjeta-inclinacion) y gira sobre ese eje inclinado.
+   El giro lo lleva src/js/tarjeta.js: sola despacio, y a mano arrastrando hacia cualquier lado.
+   El relleno de arriba y abajo deja sitio justo para las esquinas inclinadas (menos aire, Adrián 18/09/2026). */
+.media-tarjeta {
+  --tarjeta-inclinacion: -14deg;
+  perspective: 1600px;
+  padding-block: calc(var(--media-ancho) * 0.08 + 25px - var(--fila-separacion));  /* 25 px de aire en la esquina que más sobresale */
+  cursor: grab;
+  touch-action: pan-y;  /* en el móvil, fuera de la tarjeta el gesto vertical sigue moviendo la página */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.media-tarjeta.es-arrastrando { cursor: grabbing; }
+.tarjeta {
+  display: grid;
+  width: var(--ancho-tarjeta, 65%);
+  margin-inline: auto;
+  transform-style: preserve-3d;
+  transform: rotate(var(--tarjeta-inclinacion));
+  touch-action: none;   /* encima de la tarjeta, el dedo la gira en cualquier dirección */
+}
+.tarjeta-cara {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.tarjeta-dorso { transform: rotateY(180deg); }
+.media .tarjeta img { width: 100%; display: block; -webkit-user-drag: none; }
+
+/* Carrusel horizontal infinito (Samantha Hudson's AOVE tour, 17/09/2026).
+   Queda fijo en el centro de la pantalla, por delante del scroll vertical, y va en bucle.
+   Se mueve con el gesto horizontal del trackpad o arrastrando con el ratón;
+   la rueda vertical sigue moviendo la página, porque la tira tapa el centro. */
+.carrusel-marco {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;  /* por detrás de las imágenes del scroll vertical (Adrián, 17/09/2026) */
+  width: 100vw;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  cursor: grab;
+  overscroll-behavior-x: contain;
+}
+.carrusel-marco::-webkit-scrollbar { display: none; }
+.carrusel-marco.es-arrastrando { cursor: grabbing; }
+
+/* Las piezas van pegadas. Su ancho (y, al ser cuadradas, el alto de la tira) está en --carrusel-pieza. */
+.carrusel {
+  display: flex;
+  align-items: center;
+  width: max-content;
+}
+.carrusel-pieza {
+  width: var(--carrusel-pieza);
+  flex: none;
+}
+.carrusel img { width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+
+/* Las imágenes del scroll vertical pasan por delante de la tira. */
+.proyecto .media { position: relative; z-index: 1; }
+/* `capa: delante` se reserva por si alguna tiene que ir por encima de todo lo demás. */
+.media-delante { z-index: 6; }
+
+/* Pelota de tenis (Joven Promesa Main Serenata, 20/09/2026).
+   Sale del ratón al hacer clic y bota por la pantalla (src/js/pelota.js).
+   La imagen es la foto que pasó Adrián, recortada y con la luz aplanada
+   (scripts/pelota-foto.js): solo el fieltro y las costuras. El volumen lo dan las
+   dos capas de luz de aquí, que se mueven según dónde esté la pelota, como si
+   hubiera una lámpara fija encima de la pantalla. Sin sombra en el suelo: se
+   probó y Adrián no la quiso (20/09/2026). */
+.pelotas {
+  position: fixed;
+  inset: 0;
+  z-index: 20;        /* por delante de todo, también de las esquinas y las pestañas */
+  overflow: hidden;
+  pointer-events: none;  /* no estorba a los clics ni al scroll */
+}
+
+.pelota {
+  --pelota-ancho: clamp(26px, 2.4vw, 44px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--pelota-ancho);
+  height: var(--pelota-ancho);
+  will-change: transform;
+  transition: opacity 0.5s linear;
+}
+.pelota.se-va { opacity: 0; }
+
+/* La cara gira con la pelota. La imagen deja un 1 % de aire alrededor de la pelota
+   para que el borde quede limpio al girar. */
+.pelota-cara {
+  position: absolute;
+  inset: -1%;
+  will-change: transform;
+}
+.pelota-cara img { width: 100%; height: 100%; display: block; }
+
+/* Las luces sí van recortadas al círculo. Se mueven con transform (barato):
+   el brillo hacia la lámpara y la sombra propia al lado contrario.
+   Las capas son bastante más grandes que la pelota (inset negativo) para que al
+   moverlas no asome el borde del cuadrado: si asoma, se ve un corte recto dentro
+   de la bola (lo pilló Adrián, 20/09/2026). Por lo mismo las caídas llevan varios
+   pasos y terminan más allá del borde de la pelota, sin raya donde se acaban. */
+.pelota-esfera {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.pelota-luz, .pelota-umbra { position: absolute; inset: -60%; will-change: transform; }
+.pelota-luz {
+  background: radial-gradient(ellipse 39% 39% at 50% 50%,
+    rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.11) 22%, rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.02) 68%, rgba(255, 255, 255, 0) 92%);
+}
+.pelota-umbra {
+  background: radial-gradient(ellipse 52% 52% at 50% 50%,
+    rgba(18, 24, 0, 0.46) 0%, rgba(18, 24, 0, 0.36) 25%, rgba(18, 24, 0, 0.20) 50%,
+    rgba(18, 24, 0, 0.07) 75%, rgba(18, 24, 0, 0) 100%);
+}
+
+/* Proyecto compartido: cada sección tiene su parte y va primero la de la sección desde la que se llega. */
+.parte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fila-separacion);
+  width: 100%;
+}
+html[data-desde="audio"] .parte-audio,
+html[data-desde="image"] .parte-image { order: -1; }
+
+/* El hueco entre el final del material y la primera línea del texto, igual que el que hay entre
+   las líneas del texto: 1em (Adrián, 21/09/2026). Antes eran 41 px contra 17, porque se sumaban el
+   hueco general de la ficha (--fila-separacion) y el margen de la primera línea. Aquí se descuenta
+   del margen lo que sobra del hueco y la primera línea se queda sin el suyo. */
+.proyecto-texto {
+  width: var(--media-ancho);
+  max-width: 100%;
+  text-align: center;
+  margin-top: calc(1em - var(--fila-separacion));
+}
+.proyecto-texto > :first-child { margin-top: 0; }
+.proyecto-texto h1 { font-size: inherit; font-weight: inherit; }
+.proyecto-anio { color: var(--gris-texto); }
+.proyecto-datos { color: var(--gris-texto); margin-top: 1em; }
+.proyecto-texto > p { margin-top: 1em; }
+.proyecto-texto a { color: var(--gris-texto); }
+.proyecto-texto a:hover { color: var(--blanco); }
+
+/* Flechas anterior / siguiente en la ficha de proyecto */
+.flecha {
+  position: fixed;
+  top: 50%;
+  z-index: 10;
+  transform: translateY(-50%);
+  padding: 0.5em 0;  /* zona de clic más cómoda */
+  line-height: 1;
+}
+.flecha-anterior { left: var(--esquina-borde); }
+.flecha-siguiente { right: var(--esquina-borde); }
+.flecha:hover { color: var(--amarillo); }
+
+/* Solo se ven las flechas del listado desde el que se llega. */
+html:not([data-lista="sound-design"]) .flechas[data-lista="sound-design"],
+html:not([data-lista="music-production"]) .flechas[data-lista="music-production"],
+html:not([data-lista="image"]) .flechas[data-lista="image"] { display: none; }
+
+/* En pantallas estrechas se deja sitio a los lados para que las flechas no pisen la imagen. */
+@media (max-width: 700px) {
+  .proyecto { padding-inline: calc(var(--margen) + 1.5em); }
+  /* En el móvil no hay sitio en la franja de arriba: entre "Adrián Hernández" y "About" solo caben
+     tres letras y los títulos largos salían recortados ("Mús..."). Así que ahí el título deja de ir
+     clavado y pasa a ser la primera línea del scroll, encima del material, en varias líneas si hace falta. */
+  .esquina-centro {
+    position: static;
+    transform: none;
+    max-width: 100%;
+    height: auto;
+    justify-content: center;
+    padding: calc(var(--barra-alto) + var(--margen)) var(--margen) 0;
+  }
+  .esquina-centro > span { white-space: normal; text-align: center; }
+  .proyecto { padding-top: var(--margen); }
+}
+
+/* About
+   ========================================================================== */
+
+.pagina-about { background: var(--amarillo); color: var(--gris-medio); }
+.pagina-about ::selection { background: var(--gris-medio); color: var(--amarillo); }
+
+/* La x de cerrar lleva el mismo hover que el mail y el Instagram: rectángulo gris con la letra amarilla.
+   El fondo va en un span, y no en el enlace, porque el enlace ocupa toda la franja de la esquina
+   (--barra-alto); con el interlineado del texto el rectángulo queda del alto de una línea.
+   Sin aire a los lados, pegado a la letra igual que los otros dos (probado con aire el 21/09/2026
+   y descartado por Adrián). */
+.about-cerrar > span {
+  display: inline-block;
+  line-height: var(--interlineado);
+}
+.about-cerrar:hover > span { background: var(--gris-medio); color: var(--amarillo); }
+
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5em;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--margen) * 2 + 1em) var(--margen);
+}
+
+.bio {
+  max-width: var(--about-ancho);
+  text-align: center;
+}
+.bio p + p { margin-top: 1.3em; }
+
+.contacto {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-style: normal;
+}
+/* inline-block: así el rectángulo del hover ocupa toda la altura de la línea,
+   igual que el de la selección de texto (un enlace normal solo pinta la altura de las letras). */
+.contacto a { display: inline-block; }
+.contacto a:hover { background: var(--gris-medio); color: var(--amarillo); }
+
+.contacto-icono {
+  flex: none;
+  /* Alineado ópticamente con las tres líneas de al lado, como en el mockup:
+     arriba con la altura de las mayúsculas de "Adrián" y abajo con el subrayado del Instagram.
+     Medidas de Rotis Sans Serif con interlineado 1.3: mayúsculas a 0.31em del borde de la línea,
+     subrayado a 3.78em. Si cambia la fuente o el interlineado, hay que recalcular. */
+  align-self: flex-start;
+  margin-top: 0.31em;
+  width: 3.47em;
+  height: 3.47em;
+  fill: var(--gris-medio);
+}

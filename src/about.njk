@@ -1,0 +1,32 @@
+---
+layout: base.njk
+permalink: /about/
+titulo: About
+claseBody: pagina-about
+sinAbout: true
+---
+<a class="esquina esquina-derecha about-cerrar" href="/" data-volver aria-label="Close"><span>x</span></a>
+<main class="about">
+  <div class="bio">
+    <p>Adrián Hernández is a music producer and sound designer based in Madrid.</p>
+    <p>Operating at the intersection of computer music, internet culture, and sonic storytelling, his work spans from electronic avant-garde production under his alias Joven Promesa Main Serenata, to contemporary soundscapes for visual media and commercial production.</p>
+    <p>Whether through avant-garde club textures or vulnerable songwriting, his practice is defined by a distinctly contemporary, digital edge.</p>
+  </div>
+  <address class="contacto">
+    {% include "icono-arroba.svg" %}
+    <span>
+      {{ site.titulo }}<br>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a><br>
+      <a href="https://www.instagram.com/{{ site.instagram }}/" target="_blank" rel="noopener">@{{ site.instagram }}</a>
+    </span>
+  </address>
+</main>
+<script>
+  // La "x" vuelve a la página anterior si venimos de dentro de la web.
+  document.querySelector("[data-volver]").addEventListener("click", (e) => {
+    if (document.referrer.startsWith(location.origin) && history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+</script>

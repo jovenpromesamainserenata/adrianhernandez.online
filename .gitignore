@@ -1,0 +1,9 @@
+node_modules
+_site
+.DS_Store
+
+# Los originales pesados no entran nunca en el repositorio.
+originales
+
+# Los vídeos comprimidos se suben a Cloudflare R2, no al repositorio.
+/videos
