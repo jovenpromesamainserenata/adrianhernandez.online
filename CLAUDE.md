@@ -89,6 +89,15 @@ Las dos secciones tienen que poder enviarse por separado según el trabajo al qu
 
 ## Pendiente
 
+- Lista de Adrián del 22/09/2026, para terminar el 23/09/2026 (dedicará el día entero):
+  - Hover de audio: faltan los fragmentos de todos los proyectos de Sound design y Music production.
+  - Portadas de Image: estéticamente no le convencen del todo; quiere revisarlas y reordenar.
+  - Icono de la pestaña (favicon).
+  - Bio: ahora solo habla de sonido; falta añadir la parte de imagen (ver "Bio conjunta").
+  - Correo: el que puso en About no existe. Decidir entre jovenpromesamainserenata@gmail.com u otro nuevo.
+  - Samantha Hudson's AOVE tour: no le convence el contenido, pero al ser un proyecto grande se siente obligado a dejarlo. Más fotos en el scroll horizontal y rehacer el gráfico a algo parecido a la portada.
+  - Captcha: le gusta la idea, no la ejecución (demasiado limpio, la ironía no se entiende). Quiere uno de calidad muy baja, como un artefacto antiguo de internet que ha aparecido en la web, en contraste con lo limpia que es la web. Mirar el artifact antiguo.
+  - Bomarzo Tremor: no hay versión oficial y Pablo (Agma) probablemente no quiera subirla gratis a internet (se estrenó el 21/09/2026). Hay que ver cómo compartirlo (¿enlace privado, protegido con contraseña, o solo fragmentos?).
 - Material real de los proyectos: Adrián lo está recopilando (17/09/2026). Carpeta acordada: `originales/nombre-proyecto/` con `portada`, `preview.mp3`, `01`, `02`... Texto e info los pasa por el chat.
 - Lista de Sound (Sound design y Music production) actualizada por Adrián el 17/09/2026. Juggler duties estuvo solo en Sound y desde el 22/09/2026 está también en Image, tal cual (mismo vídeo, portada y créditos, sin partes propias), al principio en último lugar y luego subido al séptimo.
 - Proyectos compartidos: hecho el mecanismo de `partes` (17/09/2026). Bruised by baby bullets y 4ever tienen su parte image; faltan sus partes audio, la parte audio de Cocky (añadido a Music production el 17/09/2026, al final de la lista) (la parte image de Música de baile para amansar a las fieras ya está hecha, 21/09/2026). Doncella (2026) añadido a Image, al final, sin material.
