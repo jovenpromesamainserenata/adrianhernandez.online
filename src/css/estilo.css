@@ -41,7 +41,7 @@
   --media-ancho: max(34vw, min(90vw, 560px));
   --carrusel-pieza: 16vw;      /* ancho de cada pieza de la tira horizontal, y su alto */
   --alto-max: 76vh;
-  --about-ancho: 21em;
+  --about-ancho: 27em;
   --captcha-ancho: 23em;
 }
 
@@ -727,7 +727,10 @@ html:not([data-lista="image"]) .flechas[data-lista="image"] { display: none; }
   max-width: var(--about-ancho);
   text-align: center;
 }
-.bio p + p { margin-top: 1.3em; }
+.bio p { text-wrap: balance; }
+.bio p + p { margin-top: 1.3em; max-width: 21.3em; margin-inline: auto; } /* el resto, al ancho de la primera línea del primer párrafo */
+/* Salto de línea del primer párrafo tras "sound designer,"; en el móvil no cabe, ahí fluye solo. */
+@media (max-width: 700px) { .salto-bio { display: none; } }
 
 .contacto {
   display: flex;
