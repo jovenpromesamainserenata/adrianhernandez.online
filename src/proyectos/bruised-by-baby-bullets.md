@@ -9,6 +9,7 @@ orden:
 portada:
   audio: bruised-by-baby-bullets/portada-audio
   image: bruised-by-baby-bullets/portada
+preview: bruised-by-baby-bullets/preview.mp3
 partes:
   image:
     - bruised-by-baby-bullets/01

@@ -5,6 +5,7 @@ anio: 2026
 categoria: music-production
 orden: 5
 portada: recreo/portada
+preview: recreo/preview.mp3
 datos:
   - "All tracks by Adrián Hernández (Joven Promesa Main Serenata)"
 colaboradores:

@@ -55,6 +55,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/fuentes": "fuentes" });
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy({ "src/icono.svg": "icono.svg", "src/icono-apple.png": "icono-apple.png" });
+  eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ media: "media" });
   if (EN_VISTA_PREVIA) eleventyConfig.addPassthroughCopy({ videos: "videos" });
 

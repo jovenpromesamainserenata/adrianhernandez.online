@@ -5,6 +5,7 @@ anio: 2023
 categoria: music-production
 orden: 2
 portada: lento-rapido/portada
+preview: lento-rapido/preview.mp3
 datos:
   - "Music production for lento/rápido by Marta Sango"
 colaboradores:

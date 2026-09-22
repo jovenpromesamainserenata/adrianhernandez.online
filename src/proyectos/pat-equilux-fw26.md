@@ -5,6 +5,7 @@ anio: 2026
 categoria: sound-design
 orden: 5
 portada: pat-equilux-fw26/portada
+preview: pat-equilux-fw26/preview.mp3
 galeria:
   - video: pat-equilux-fw26/video-01
   - video: pat-equilux-fw26/video-02

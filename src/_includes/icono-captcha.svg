@@ -1,9 +1,0 @@
-{#- Logo de las flechas del captcha, con la forma del original y los colores de la web.
-    Círculos de radio 22 y 11 sobre un lienzo de 48, centro en (24,24).
-    El corte entre las dos flechas es la horizontal exacta y = 24: las tres siluetas
-    comparten los mismos puntos ahí para que no se vea ningún escalón. -#}
-<svg class="captcha-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
-  <path class="captcha-flecha-clara" d="M6.88 1.88L25.88 1.88A22.15 22.15 0 0 1 41 9.88L42 9.75L45.25 6.25L46 6.88L46 24L28.63 24L28.13 23.38L32.88 18.75A11 11 0 0 0 24.5 13.25L24.13 14.13L23.5 19.88L18.75 15.25A11 11 0 0 0 13 24L2 24A22.15 22.15 0 0 1 9.75 7L9.75 6.25L6.13 2.75Z"/>
-  <path class="captcha-flecha-oscura" d="M24.13 1.88L25.88 1.88A22.15 22.15 0 0 1 41 9.88L42 9.75L45.25 6.25L46 6.88L46 24L28.63 24L28.13 23.38L32.88 18.75A11 11 0 0 0 24.13 13.38Z"/>
-  <path class="captcha-flecha-gris" d="M19.75 24L15 29.63A11 11 0 0 0 33.25 30.13L33.88 30.13L40.88 37.13A22.15 22.15 0 0 1 6.75 38.13L5.25 39.13L2.75 41.88L2.13 41.75L2 24Z"/>
-</svg>

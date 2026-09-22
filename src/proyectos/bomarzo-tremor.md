@@ -5,6 +5,7 @@ anio: 2026
 categoria: sound-design
 orden: 7
 portada: bomarzo-tremor/portada
+preview: bomarzo-tremor/preview.mp3
 galeria:
   - video: bomarzo-tremor/video-01
 borrador: true

@@ -9,6 +9,7 @@ orden:
 portada:
   audio: 4ever/portada-audio
   image: 4ever/portada
+preview: 4ever/preview.mp3
 partes:
   image:
     - video: 4ever/video-01

@@ -9,6 +9,7 @@ orden:
 portada:
   audio: cocky/portada-audio
   image: cocky/portada-image
+preview: cocky/preview.mp3
 partes:
   image:
     - cocky/01

@@ -16,14 +16,9 @@
   --gris-texto: #dadada;      /* títulos y años de los listados */
   --blanco: #ffffff;
   --amarillo: #d5ff00;
-  --amarillo-oscuro: #8fae00;  /* segundo tono del logo del captcha */
-  --captcha-fondo: #f9f9f9;
-  --captcha-borde: #d3d3d3;
-  --captcha-tinta: #3c3c3c;
 
   /* Tipografía */
   --fuente: "Rotis Sans Serif", "Helvetica Neue", Arial, sans-serif;
-  --fuente-captcha: Roboto, var(--fuente);  /* solo la marca del captcha, como el original */
   --texto: clamp(17px, 1.25vw, 24px);
   --interlineado: 1.3;
   --subrayado-grosor: 0.06em;
@@ -41,8 +36,8 @@
   --media-ancho: max(34vw, min(90vw, 560px));
   --carrusel-pieza: 16vw;      /* ancho de cada pieza de la tira horizontal, y su alto */
   --alto-max: 76vh;
-  --about-ancho: 27em;
-  --captcha-ancho: 23em;
+  --about-ancho: 40em;
+  --captcha-ancho: 18em;
 }
 
 /* Base
@@ -183,74 +178,52 @@ a.esquina-derecha:hover,
 .captcha-fuera { opacity: 0; pointer-events: none; }
 
 .captcha-caja {
-  display: flex;
-  align-items: center;
-  gap: 0.8em;
+  position: relative;
+  display: block;
   width: min(100%, var(--captcha-ancho));
   margin: 0;
-  padding: 0.78em 0.9em;
-  border: 1px solid var(--captcha-borde);
-  border-radius: 3px;
-  background: var(--captcha-fondo);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
-  color: var(--captcha-tinta);
-  font: inherit;
-  text-align: left;
+  padding: 0;
+  border: none;
+  background: none;
   cursor: pointer;
 }
 .captcha-caja:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 4px; }
 .captcha-caja:disabled { cursor: default; }
 
-.captcha-casilla {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 1.55em;
-  height: 1.55em;
-  border: 2px solid #b4b4b4;
-  background: var(--blanco);
-  transition: border-color 200ms ease, background-color 200ms ease;
+/* Todas las capas son imágenes de Adrián, del mismo tamaño (474 × 236) y
+   con la casilla ya dibujada en su sitio, así que se apilan sin más cálculo. */
+.captcha-capa {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.captcha-hecho .captcha-casilla { border-color: transparent; background: transparent; }
-
+.captcha-superpuesta {
+  position: absolute;
+  inset: 0;
+}
+.captcha-casilla-hover,
 .captcha-tick {
-  width: 130%;
-  height: 130%;
-  fill: none;
-  stroke: var(--amarillo);
-  stroke-width: 3.2;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-  stroke-dasharray: 34;
-  stroke-dashoffset: 34;
+  opacity: 0;
 }
-.captcha-hecho .captcha-tick {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 320ms ease-out;
-}
+.captcha-casilla-hover { transition: opacity 150ms ease; }
 
-.captcha-texto { flex: 1; }
-
-/* Columna de marca de la derecha: logo, nombre y la letra pequeña, como en el original. */
-.captcha-marca {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15em;
-  color: var(--gris-medio);
-  font-family: var(--fuente-captcha);
-  line-height: 1.15;
+/* Zona invisible del tamaño justo de la casilla (medida sobre los píxeles
+   de esa imagen, 474 × 236): el hover solo se activa ahí, no en toda la caja. */
+.captcha-casilla-zona {
+  position: absolute;
+  z-index: 1;
+  left: 9.28%;
+  top: 41.95%;
+  width: 9.07%;
+  height: 18.22%;
 }
-.captcha-logo { width: 1.9em; height: 1.9em; }
-.captcha-marca-nombre { font-size: 0.6em; }
-.captcha-marca-legal { font-size: 0.48em; }
-.captcha-flecha-clara { fill: var(--amarillo); }
-.captcha-flecha-oscura { fill: var(--amarillo-oscuro); }
-.captcha-flecha-gris { fill: var(--gris-medio); }
+.captcha-casilla-zona:hover ~ .captcha-casilla-hover { opacity: 1; }
+
+.captcha-tick { transition: opacity 200ms ease; }
+.captcha-hecho .captcha-tick { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .captcha, .captcha-casilla, .captcha-hecho .captcha-tick { transition-duration: 1ms; }
+  .captcha, .captcha-casilla-img-hover, .captcha-tick { transition-duration: 1ms; }
 }
 
 /* Listados con scroll infinito
@@ -733,7 +706,7 @@ html:not([data-lista="image"]) .flechas[data-lista="image"] { display: none; }
   text-align: center;
 }
 .bio p { text-wrap: balance; }
-.bio p + p { margin-top: 1.3em; max-width: 21.3em; margin-inline: auto; } /* el resto, al ancho de la primera línea del primer párrafo */
+.bio p + p { margin-top: 1.3em; }
 /* Salto de línea del primer párrafo tras "sound designer,"; en el móvil no cabe, ahí fluye solo. */
 @media (max-width: 700px) { .salto-bio { display: none; } }
 

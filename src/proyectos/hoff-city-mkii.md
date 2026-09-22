@@ -5,6 +5,7 @@ anio: 2024
 categoria: sound-design
 orden: 2
 portada: hoff-city-mkii/portada
+preview: hoff-city-mkii/preview.mp3
 galeria:
   - video: hoff-city-mkii/video-01
   - video: hoff-city-mkii/video-02

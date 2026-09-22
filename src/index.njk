@@ -6,10 +6,9 @@ sinAbout: true
 scripts: [fuentes, captcha, sonido-portada, toque-portada]
 # Fuentes del efecto de "Image". Solo se descargan las letras de la palabra (text=Image).
 # Para cambiarlas: tocar esta lista y la de src/js/fuentes.js.
-# Roboto se pide aparte (abajo) porque hace dos papeles: el efecto de "Image" y el texto del captcha.
+# Roboto se pide aparte (abajo) porque hace de fuente del efecto de "Image".
 fuentesGoogle: "family=Roboto+Mono&family=Archivo+Black&family=EB+Garamond&family=Saira&family=League+Script&family=Allerta&family=Carrois+Gothic&family=IBM+Plex+Sans+KR"
-# Letras que hacen falta de Roboto: las de la marca del captcha y las de "Image".
-fuenteCaptcha: "reCAPTCHA Privacy - Terms Image"
+fuenteCaptcha: "Image"
 ---
 <script>
   // Si ya se ha pasado el captcha en esta visita, se quita antes de pintarlo:
@@ -21,5 +20,5 @@ fuenteCaptcha: "reCAPTCHA Privacy - Terms Image"
 {% include "captcha.njk" %}
 <main class="portada">
   <a class="mitad" href="/audio/" data-audio="/media/portada/audio.mp3"><span>Audio</span></a>
-  <a class="mitad mitad-image" href="/image/"><span data-roll-fuentes>Image</span></a>
+  <a class="mitad mitad-image" href="/image/" data-audio="/media/portada/image.mp3"><span data-roll-fuentes>Image</span></a>
 </main>

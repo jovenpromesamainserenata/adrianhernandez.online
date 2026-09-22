@@ -5,6 +5,7 @@ anio: 2024
 categoria: sound-design
 orden: 6
 portada: desigual/portada
+preview: desigual/preview.mp3
 galeria:
   - video: desigual/video-01
 datos:

@@ -5,6 +5,7 @@ anio: 2023
 categoria: sound-design
 orden: 3
 portada: in-the-flesh/portada
+preview: in-the-flesh/preview.mp3
 galeria:
   - video: in-the-flesh/video-01
 datos:

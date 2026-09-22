@@ -5,6 +5,7 @@ anio: 2024
 categoria: music-production
 orden: 1
 portada: nena/portada
+preview: nena/preview.mp3
 datos:
   - "Music production for NENA by Yenesi"
 colaboradores:

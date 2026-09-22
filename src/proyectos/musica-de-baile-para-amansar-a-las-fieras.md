@@ -9,6 +9,7 @@ orden:
 portada:
   audio: musica-de-baile-para-amansar-a-las-fieras/portada
   image: musica-de-baile-para-amansar-a-las-fieras/portada-image
+preview: musica-de-baile-para-amansar-a-las-fieras/preview.mp3
 partes:
   image:
     - imagen: musica-de-baile-para-amansar-a-las-fieras/01

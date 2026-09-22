@@ -7,6 +7,7 @@ orden:
   audio: 4
   image: 6
 portada: juggler-duties/portada
+preview: juggler-duties/preview.mp3
 galeria:
   - video: juggler-duties/video-01
 datos:

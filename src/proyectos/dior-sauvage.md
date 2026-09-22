@@ -5,6 +5,7 @@ anio: 2025
 categoria: sound-design
 orden: 8
 portada: dior-sauvage/portada
+preview: dior-sauvage/preview.mp3
 galeria:
   - video: dior-sauvage/video-01
 datos:
