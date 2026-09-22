@@ -93,7 +93,7 @@ Las dos secciones tienen que poder enviarse por separado según el trabajo al qu
   - Hover de audio: faltan los fragmentos de todos los proyectos de Sound design y Music production.
   - Portadas de Image: estéticamente no le convencen del todo; quiere revisarlas y reordenar.
   - Icono de la pestaña (favicon).
-  - Bio: ahora solo habla de sonido; falta añadir la parte de imagen (ver "Bio conjunta").
+  - Bio: hecha el 22/09/2026, conjunta (sonido e imagen) en `src/about.njk`; pendiente solo decidir si se ordenan los párrafos según la sección de origen.
   - Correo: el que puso en About no existe. Decidir entre jovenpromesamainserenata@gmail.com u otro nuevo.
   - Samantha Hudson's AOVE tour: no le convence el contenido, pero al ser un proyecto grande se siente obligado a dejarlo. Más fotos en el scroll horizontal y rehacer el gráfico a algo parecido a la portada.
   - Captcha: le gusta la idea, no la ejecución (demasiado limpio, la ironía no se entiende). Quiere uno de calidad muy baja, como un artefacto antiguo de internet que ha aparecido en la web, en contraste con lo limpia que es la web. Mirar el artifact antiguo.
