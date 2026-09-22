@@ -152,7 +152,12 @@ a.esquina-derecha:hover,
   color: var(--amarillo);
   background: var(--fondo);
 }
-.mitad:hover { color: var(--gris-medio); background: var(--amarillo); }
+/* Solo con ratón: en el móvil el hover se queda pegado tras tocar (p. ej. el captcha, que está encima) */
+@media (hover: hover) {
+  .mitad:hover { color: var(--gris-medio); background: var(--amarillo); }
+}
+/* En el móvil el amarillo sale solo al tocar (lo pone toque-portada.js justo antes de entrar) */
+.mitad.tocada { color: var(--gris-medio); background: var(--amarillo); }
 
 @media (max-width: 700px) and (orientation: portrait) {
   .portada { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
