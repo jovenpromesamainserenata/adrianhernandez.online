@@ -8,7 +8,8 @@
     "imagenes": "node scripts/imagenes.js",
     "videos": "node scripts/videos.js",
     "pelota": "node scripts/pelota.js",
-    "pelota-foto": "node scripts/pelota-foto.js"
+    "pelota-foto": "node scripts/pelota-foto.js",
+    "captcha-jpg": "node scripts/captcha-jpg.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
