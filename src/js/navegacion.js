@@ -66,7 +66,9 @@
     document.body.className = nuevo.body.className;
     document.body.innerHTML = contenido.innerHTML;
 
-    if (historial) history.pushState(null, "", url.href);
+    // La marca `dentro` deja saber a la página nueva que se llegó desde otra de la web: sin recarga,
+    // `document.referrer` sigue siendo el de la primera página de la visita (la "x" del About).
+    if (historial) history.pushState({ dentro: true }, "", url.href);
     window.scrollTo({ top: 0, behavior: "instant" });
 
     // Los scripts de la página (menos este) se vuelven a ejecutar de cero, en su orden: los que

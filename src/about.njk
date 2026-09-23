@@ -23,9 +23,11 @@ sinAbout: true
   </address>
 </main>
 <script>
-  // La "x" vuelve a la página anterior si venimos de dentro de la web.
+  // La "x" vuelve a la página anterior si venimos de dentro de la web. Con la navegación sin
+  // recarga (navegacion.js) el referrer no cambia, así que se mira también su marca en el historial.
   document.querySelector("[data-volver]").addEventListener("click", (e) => {
-    if (document.referrer.startsWith(location.origin) && history.length > 1) {
+    const dentro = (history.state && history.state.dentro) || document.referrer.startsWith(location.origin);
+    if (dentro && history.length > 1) {
       e.preventDefault();
       history.back();
     }
