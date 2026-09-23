@@ -30,6 +30,13 @@
       return;
     }
 
+    // Se para todo lo que estuviera sonando o escuchando en la página que se deja: al quitar
+    // el contenido, elementos como las mitades de la portada desaparecen sin disparar su
+    // "mouseleave", así que si no se paran aquí se quedan sonando de fondo (Adrián, 23/09/2026).
+    window.__pararSonido?.();
+    window.__quitarScrollInfinito?.();
+    window.__cerrarSonidoPortada?.();
+
     const nuevo = new DOMParser().parseFromString(html, "text/html");
 
     // Fuentes de Google que haga falta cargar y que todavía no estén (la portada pide
