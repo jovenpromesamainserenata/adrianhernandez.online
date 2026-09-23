@@ -97,7 +97,7 @@ Las dos secciones tienen que poder enviarse por separado según el trabajo al qu
 - Lista de Adrián del 22/09/2026, para terminar el 23/09/2026 (dedicará el día entero):
   - Hover de audio: faltan los fragmentos de todos los proyectos de Sound design y Music production.
   - Portadas de Image: estéticamente no le convencen del todo; quiere revisarlas y reordenar.
-  - Icono de la pestaña (favicon).
+  - Icono de la pestaña (favicon). Es `src/icono.svg` (círculo `--amarillo`), con copias en PNG (`icono.png`, 96 px) y `favicon.ico` (32 px) desde el 23/09/2026: Safari 18 no lee favicons en SVG y no salía. Si se cambia el SVG, hay que regenerar las dos copias.
   - Bio: hecha el 22/09/2026, conjunta (sonido e imagen) en `src/about.njk`; pendiente solo decidir si se ordenan los párrafos según la sección de origen.
   - Correo: el que puso en About no existe. Decidir entre jovenpromesamainserenata@gmail.com u otro nuevo.
   - Samantha Hudson's AOVE tour: no le convence el contenido, pero al ser un proyecto grande se siente obligado a dejarlo. Más fotos en el scroll horizontal y rehacer el gráfico a algo parecido a la portada.
