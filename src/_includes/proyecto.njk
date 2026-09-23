@@ -175,12 +175,19 @@ layout: base.njk
 <script src="/js/tarjeta.js"></script>
 <script src="/js/reproductor.js"></script>
 <script>
-  // También con las flechas del teclado.
-  document.addEventListener("keydown", function (e) {
-    var tecla = { ArrowLeft: "anterior", ArrowRight: "siguiente" }[e.key];
-    if (!tecla || e.altKey || e.metaKey || e.ctrlKey) return;
-    var nav = document.querySelector('.flechas[data-lista="' + document.documentElement.dataset.lista + '"]');
-    var enlace = nav && nav.querySelector('[data-flecha="' + tecla + '"]');
-    if (enlace) location.href = enlace.href;
-  });
+  // También con las flechas del teclado. Con click() y no cambiando location, para que pase
+  // por la navegación sin recarga (navegacion.js).
+  (function () {
+    function alTeclear(e) {
+      var tecla = { ArrowLeft: "anterior", ArrowRight: "siguiente" }[e.key];
+      if (!tecla || e.altKey || e.metaKey || e.ctrlKey) return;
+      var nav = document.querySelector('.flechas[data-lista="' + document.documentElement.dataset.lista + '"]');
+      var enlace = nav && nav.querySelector('[data-flecha="' + tecla + '"]');
+      if (enlace) enlace.click();
+    }
+    document.addEventListener("keydown", alTeclear);
+    (window.__limpiezas = window.__limpiezas || []).push(function () {
+      document.removeEventListener("keydown", alTeclear);
+    });
+  })();
 </script>

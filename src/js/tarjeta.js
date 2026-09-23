@@ -42,6 +42,13 @@
     ].join(",") +
     ")";
 
+  let viva = true;  // se apaga al irse de la ficha sin recargar (navegacion.js)
+  const observadores = [];
+  (window.__limpiezas ||= []).push(function () {
+    viva = false;
+    observadores.forEach((o) => o.disconnect());
+  });
+
   document.querySelectorAll("[data-tarjeta]").forEach(function (marco) {
     const tarjeta = marco.querySelector(".tarjeta");
 
@@ -97,9 +104,11 @@
     marco.addEventListener("dragstart", (e) => e.preventDefault());
 
     // Fuera de la pantalla no hace falta moverla.
-    new IntersectionObserver(function (entradas) {
+    const observador = new IntersectionObserver(function (entradas) {
       visible = entradas[0].isIntersecting;
-    }).observe(marco);
+    });
+    observador.observe(marco);
+    observadores.push(observador);
 
     function pintar() {
       tarjeta.style.transform = matriz(postura);
@@ -128,7 +137,7 @@
         enderezar(Math.min(ENDEREZAR * dt, 1));
         pintar();
       }
-      requestAnimationFrame(paso);
+      if (viva) requestAnimationFrame(paso);
     }
     pintar();
     requestAnimationFrame(paso);

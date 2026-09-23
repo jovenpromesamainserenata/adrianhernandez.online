@@ -34,4 +34,7 @@
     clearInterval(temporizador);
     palabra.style.fontFamily = "";
   });
+  // Al irse de la portada sin recargar (navegacion.js) la palabra desaparece sin que llegue el
+  // mouseleave: se para aquí.
+  (window.__limpiezas ||= []).push(() => clearInterval(temporizador));
 })();

@@ -5,10 +5,6 @@
   const lista = document.querySelector("[data-scroll-infinito]");
   if (!lista || !lista.children.length) return;
 
-  // Con navegación sin recarga (navegacion.js) este script puede arrancar varias veces en
-  // la misma página: se limpia la instancia anterior antes de montar la suya.
-  window.__quitarScrollInfinito?.();
-
   const originales = [...lista.children];
 
   function clonar(elemento) {
@@ -47,8 +43,9 @@
   window.addEventListener("scroll", alScroll, { passive: true });
   window.addEventListener("resize", medir);
 
-  window.__quitarScrollInfinito = function () {
+  // Al irse de la página sin recargarla (navegacion.js) se quitan los oyentes.
+  (window.__limpiezas ||= []).push(function () {
     window.removeEventListener("scroll", alScroll);
     window.removeEventListener("resize", medir);
-  };
+  });
 })();

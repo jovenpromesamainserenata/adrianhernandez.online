@@ -53,6 +53,8 @@
     }, { passive: true });
 
     window.addEventListener("resize", medir);
+    // Al irse de la ficha sin recargar (navegacion.js).
+    (window.__limpiezas ||= []).push(() => window.removeEventListener("resize", medir));
 
     // Arrastrar con el ratón.
     let arrastrando = false;

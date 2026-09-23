@@ -162,7 +162,7 @@
     return Math.max(0, alto) / (c.height || 1);
   }
 
-  document.addEventListener("keydown", (e) => {
+  function alTeclear(e) {
     if ((e.key !== " " && e.code !== "Space") || e.altKey || e.metaKey || e.ctrlKey || e.repeat) return;
     // Con un botón o un enlace seleccionado (teclado), la barra espaciadora hace lo suyo.
     if (e.target.closest("button, a, input, textarea, select, [contenteditable]")) return;
@@ -174,5 +174,9 @@
     if (!r) return;
     e.preventDefault(); // si no, la página baja
     alternadores.get(r)();
-  });
+  }
+  document.addEventListener("keydown", alTeclear);
+
+  // Al irse de la ficha sin recargar (navegacion.js). Los vídeos se paran solos al sacarlos de la página.
+  (window.__limpiezas ||= []).push(() => document.removeEventListener("keydown", alTeclear));
 })();

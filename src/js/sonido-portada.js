@@ -16,18 +16,16 @@
   const mitades = document.querySelectorAll("[data-audio]");
   if (!mitades.length) return;
 
-  // Con navegación sin recarga (navegacion.js) este script puede arrancar varias veces en
-  // la misma página (al volver a la portada): se cierra el AudioContext anterior antes de
-  // abrir uno nuevo, si no se van acumulando sin cerrarse nunca.
-  window.__cerrarSonidoPortada?.();
-
   const ESPERA_PAUSA = 5000;  // ms que sigue corriendo en silencio tras salir, antes de pausarse
   const SILENCIO = 0.002;     // por debajo de esto no se considera sonido (unos -54 dB)
 
   const Contexto = window.AudioContext || window.webkitAudioContext;
   if (!Contexto) return;
 
-  const ctx = new Contexto();
+  // Un solo AudioContext para toda la visita, compartido con los listados (sonido.js): con la
+  // navegación sin recarga (navegacion.js) sigue vivo de una página a otra, así que no se
+  // acumulan contextos y el permiso para sonar que dio el primer clic no se pierde.
+  const ctx = (window.__audio ||= new Contexto());
 
   // Primera y última muestra con sonido: es lo que se repite en bucle.
   function recorte(buffer) {
@@ -103,8 +101,10 @@
       },
       pararYa() {
         clearTimeout(reloj);
+        dentro = false;
         volumen(0);
         pausar();
+        ganancia.disconnect();
       },
       async cargar() {
         try {
@@ -137,12 +137,12 @@
   if (document.readyState === "complete") empezar();
   else addEventListener("load", empezar, { once: true });
 
-  window.__cerrarSonidoPortada = function () {
+  // Al irse de la portada (navegacion.js) se corta el sonido al instante. El contexto no se
+  // cierra: lo siguen usando los listados.
+  (window.__limpiezas ||= []).push(function () {
     removeEventListener("pointerdown", alGesto);
     removeEventListener("keydown", alGesto);
-    // Se para cada pista a mano (no todos los navegadores cortan el sonido al instante con
-    // ctx.close(); algunos lo van apagando un momento, Adrián 23/09/2026) y ya luego se cierra.
+    removeEventListener("load", empezar);
     pistas.forEach((p) => p.pararYa());
-    ctx.close().catch(() => {});
-  };
+  });
 })();

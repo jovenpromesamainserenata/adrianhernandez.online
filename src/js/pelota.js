@@ -156,10 +156,10 @@
   // La pelota sale al soltar, no al pulsar: así arrastrar para seleccionar un texto
   // (o para mover el carrusel) no la lanza. Tampoco sale si queda texto seleccionado.
   let inicio = null;
-  addEventListener("pointerdown", function (e) {
+  function alPulsar(e) {
     inicio = e.button > 0 ? null : { x: e.clientX, y: e.clientY, t: e.timeStamp };
-  });
-  addEventListener("pointerup", function (e) {
+  }
+  function alSoltar(e) {
     const desde = inicio;
     inicio = null;
     if (!desde || e.target.closest(SUYO)) return;
@@ -168,14 +168,26 @@
     const seleccion = getSelection();
     if (seleccion && !seleccion.isCollapsed) return;
     lanzar(e.clientX, e.clientY);
-  });
+  }
 
   // Si la ventana cambia de tamaño, las que se queden fuera vuelven dentro.
-  addEventListener("resize", function () {
+  function alCambiarTamano() {
     for (const p of pelotas) {
       p.x = Math.min(Math.max(p.x, p.radio), innerWidth - p.radio);
       p.y = Math.min(Math.max(p.y, p.radio), innerHeight - p.radio);
       pintar(p, innerWidth, innerHeight);
     }
+  }
+
+  addEventListener("pointerdown", alPulsar);
+  addEventListener("pointerup", alSoltar);
+  addEventListener("resize", alCambiarTamano);
+
+  // Al irse de la ficha sin recargar (navegacion.js) se quitan los oyentes y las pelotas.
+  (window.__limpiezas ||= []).push(function () {
+    removeEventListener("pointerdown", alPulsar);
+    removeEventListener("pointerup", alSoltar);
+    removeEventListener("resize", alCambiarTamano);
+    pelotas.length = 0;
   });
 })();
