@@ -94,7 +94,10 @@
       fuente.stop();
       fuente.disconnect();
       fuente = null;
-      ctx.suspend();
+      // El contexto es de las dos mitades: solo se suspende si la otra tampoco suena. Antes se
+      // suspendía siempre, y al pasar de Audio a Image, a los 5 s de salir de Audio se cortaba
+      // Image en seco y parecía que no iba en bucle (Adrián, 23/09/2026).
+      if (!pistas.some((p) => p.sonando())) ctx.suspend();
     }
 
     mitad.addEventListener("mouseenter", () => {
@@ -121,6 +124,7 @@
     });
 
     return {
+      sonando: () => fuente !== null,
       activarSiDentro() {
         if (dentro) sonar();
       },
