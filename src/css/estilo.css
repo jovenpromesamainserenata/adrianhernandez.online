@@ -20,6 +20,8 @@
   /* Tipografía */
   --fuente: "Rotis Sans Serif", "Helvetica Neue", Arial, sans-serif;
   --texto: clamp(17px, 1.25vw, 24px);
+  /* Prueba (23/09/2026): títulos de los listados, texto de las fichas y bio, un poco más pequeños. */
+  --texto-pequeno: 0.85em;
   --interlineado: 1.3;
   --subrayado-grosor: 0.06em;
   --subrayado-separacion: 0.12em;
@@ -185,10 +187,29 @@ a.esquina-derecha:hover,
   padding: 0;
   border: none;
   background: none;
+  pointer-events: none;
+}
+.captcha-caja:focus-visible { outline: none; }
+.captcha-caja:focus-visible .captcha-caja-zona { outline: 2px solid var(--amarillo); outline-offset: 4px; }
+
+/* La imagen tiene márgenes transparentes alrededor de la caja: el botón no
+   recibe clics y solo reacciona esta zona, medida sobre los píxeles visibles
+   de captcha-caja.png (de x 8 a 465 y de y 54 a 183, sobre 474 × 236). */
+.captcha-caja-zona,
+.captcha-casilla-zona {
+  pointer-events: auto;
   cursor: pointer;
 }
-.captcha-caja:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 4px; }
-.captcha-caja:disabled { cursor: default; }
+.captcha-caja:disabled .captcha-caja-zona,
+.captcha-caja:disabled .captcha-casilla-zona { cursor: default; }
+.captcha-caja-zona {
+  position: absolute;
+  z-index: 1;
+  left: 1.69%;
+  top: 22.88%;
+  right: 1.69%;
+  bottom: 22.03%;
+}
 
 /* Todas las capas son imágenes de Adrián, del mismo tamaño (474 × 236) y
    con la casilla ya dibujada en su sitio, así que se apilan sin más cálculo. */
@@ -211,7 +232,7 @@ a.esquina-derecha:hover,
    de esa imagen, 474 × 236): el hover solo se activa ahí, no en toda la caja. */
 .captcha-casilla-zona {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   left: 9.28%;
   top: 41.95%;
   width: 9.07%;
@@ -245,6 +266,7 @@ a.esquina-derecha:hover,
   column-gap: var(--fila-hueco);
   color: var(--gris-texto);
   text-decoration: none;
+  font-size: var(--texto-pequeno);
 }
 .fila:hover { color: var(--blanco); }
 
@@ -255,6 +277,12 @@ a.esquina-derecha:hover,
   width: 100%;
   aspect-ratio: var(--miniatura-proporcion);
   object-fit: cover;
+}
+
+/* Image: miniaturas al doble de ancho (prueba, 23/09/2026). */
+/* En el móvil se quedan del tamaño de siempre (Adrián, 23/09/2026). */
+@media (min-width: 701px) {
+  .listado-grande .fila { grid-template-columns: 1fr calc(var(--miniatura-ancho) * 2) 1fr; }
 }
 
 /* Music production: miniaturas cuadradas, mismo ancho. */
@@ -627,6 +655,7 @@ html[data-desde="image"] .parte-image { order: -1; }
   width: var(--media-ancho);
   max-width: 100%;
   text-align: center;
+  font-size: var(--texto-pequeno);
   margin-top: calc(1em - var(--fila-separacion));
 }
 .proyecto-texto > :first-child { margin-top: 0; }
@@ -702,7 +731,8 @@ html:not([data-lista="image"]) .flechas[data-lista="image"] { display: none; }
 }
 
 .bio {
-  max-width: var(--about-ancho);
+  font-size: var(--texto-pequeno);
+  max-width: calc(var(--about-ancho) / 0.85);
   text-align: center;
 }
 .bio p { text-wrap: balance; }
@@ -711,6 +741,7 @@ html:not([data-lista="image"]) .flechas[data-lista="image"] { display: none; }
 @media (max-width: 700px) { .salto-bio { display: none; } }
 
 .contacto {
+  font-size: var(--texto-pequeno);
   display: flex;
   align-items: center;
   gap: 1em;

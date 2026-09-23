@@ -63,6 +63,7 @@ Las dos secciones tienen que poder enviarse por separado según el trabajo al qu
 ## Aspecto
 
 - Tipografía: Rotis Sans Serif W02, Adrián tiene el `.woff2` (en `src/fuentes/`).
+- Prueba del 23/09/2026 (Adrián, "si sale mal volvemos"): los títulos y años de los listados, el texto de las fichas (debajo del material) la bio del About y su contacto (nombre, mail e Instagram, con el icono de arroba, que va en em y encoge con ellos) van un poco más pequeños, `--texto-pequeno: 0.85em`; el resto sigue a `--texto`. En el listado de Image las miniaturas van al doble de ancho, salvo en el móvil (hasta 700 px), donde se quedan como estaban (clase `listado-grande` en `image.njk`, y `sizes` de 260px en `listado.njk`). Para volver: quitar esas reglas.
 - Tamaño de letra único para toda la web: `--texto: clamp(17px, 1.25vw, 24px)` (18 px en un portátil de 1440 px, 24 px en Full HD). Adrián la pidió algo más pequeña el 18/09/2026; antes era `clamp(17px, 1.45vw, 28px)`.
 - Fondo gris claro (#BBBBBB), bloques gris medio (#999999), texto de listados gris claro, acento amarillo lima (#D5FF00, exacto, elegido por Adrián). Valores exactos por afinar, todos en `:root` de `src/css/estilo.css`.
 - Enlaces subrayados. Hover amarillo en About y en las pestañas inferiores.

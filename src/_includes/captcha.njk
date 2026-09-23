@@ -3,9 +3,12 @@
     Todo son imágenes de Adrián, del mismo tamaño y apiladas: la caja debajo,
     la casilla (normal y hover) y el tick encima, cada una en su sitio ya
     dibujado dentro de la imagen. El hover solo se activa sobre la casilla,
-    con una zona invisible del tamaño justo del cuadrado. -#}
+    con una zona invisible del tamaño justo del cuadrado. El botón en sí no
+    recibe clics (la imagen tiene márgenes transparentes): los recoge otra zona
+    invisible del tamaño de la caja dibujada. -#}
 <div class="captcha" data-captcha>
   <button class="captcha-caja" type="button" data-captcha-boton aria-label="I can be anything you want">
+    <span class="captcha-caja-zona"></span>
     <img class="captcha-capa captcha-fondo" src="/img/captcha-caja.png" alt="" width="474" height="236">
     <img class="captcha-capa captcha-superpuesta" src="/img/captcha-casilla.png" alt="" width="474" height="236">
     <span class="captcha-casilla-zona"></span>
