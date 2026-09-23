@@ -283,12 +283,6 @@ a.esquina-derecha:hover,
   object-fit: cover;
 }
 
-/* Image: miniaturas al doble de ancho (prueba, 23/09/2026). */
-/* En el móvil se quedan del tamaño de siempre (Adrián, 23/09/2026). */
-@media (min-width: 701px) {
-  .listado-grande .fila { grid-template-columns: 1fr calc(var(--miniatura-ancho) * 2) 1fr; }
-}
-
 /* Music production: miniaturas cuadradas, mismo ancho. */
 .listado-cuadrado .fila-miniatura { aspect-ratio: 1; }
 

@@ -11,7 +11,7 @@
     <li>
       <a class="fila" href="{{ proyecto.url }}" {% if proyecto.data.preview %}data-preview="/media/{{ proyecto.data.preview }}"{% endif %}>
         <span class="fila-titulo">{{ proyecto.data.titulo }}</span>
-        {% imagen proyecto.data.portada | portadaEn(seccionListado), "", ("260px" if seccionListado == "image" else "130px"), "fila-miniatura" %}
+        {% imagen proyecto.data.portada | portadaEn(seccionListado), "", "130px", "fila-miniatura" %}
         <span class="fila-anio">({{ proyecto.data.anio }})</span>
       </a>
     </li>
