@@ -118,6 +118,10 @@ button {
 /* El recorte va en el span y no en el h1: así el h1 conserva el alto y el centrado de .esquina
    y el título queda a la misma altura que "Adrián Hernández" y "About". */
 .esquina-centro > span {
+  /* Con el interlineado a 1 el recorte cortaba los rasgos que bajan (la "g" de Sauvage): se le da
+     aire arriba y abajo y el margen negativo lo compensa, así el texto no se mueve. */
+  padding-block: 0.25em;
+  margin-block: -0.25em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
