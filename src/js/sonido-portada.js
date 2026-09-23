@@ -16,6 +16,11 @@
   const mitades = document.querySelectorAll("[data-audio]");
   if (!mitades.length) return;
 
+  // Con navegación sin recarga (navegacion.js) este script puede arrancar varias veces en
+  // la misma página (al volver a la portada): se cierra el AudioContext anterior antes de
+  // abrir uno nuevo, si no se van acumulando sin cerrarse nunca.
+  window.__cerrarSonidoPortada?.();
+
   const ESPERA_PAUSA = 5000;  // ms que sigue corriendo en silencio tras salir, antes de pausarse
   const SILENCIO = 0.002;     // por debajo de esto no se considera sonido (unos -54 dB)
 
@@ -92,12 +97,10 @@
       reloj = setTimeout(pausar, ESPERA_PAUSA);
     });
 
-    // Los navegadores no dejan sonar nada hasta que la persona hace un clic: en la portada lo da
-    // el captcha, y si por lo que sea no lo ha dado, se espera al primer clic o tecla.
-    addEventListener("pointerdown", () => { if (dentro) sonar(); });
-    addEventListener("keydown", () => { if (dentro) sonar(); });
-
     return {
+      activarSiDentro() {
+        if (dentro) sonar();
+      },
       async cargar() {
         try {
           const datos = await fetch(mitad.dataset.audio).then((r) => r.arrayBuffer());
@@ -112,7 +115,26 @@
   }
 
   const pistas = Array.from(mitades, preparar);
-  addEventListener("load", () => (window.requestIdleCallback || setTimeout)(() => {
-    pistas.forEach((p) => p.cargar());
-  }));
+
+  // Los navegadores no dejan sonar nada hasta que la persona hace un clic: en la portada lo da
+  // el captcha, y si por lo que sea no lo ha dado, se espera al primer clic o tecla.
+  function alGesto() {
+    pistas.forEach((p) => p.activarSiDentro());
+  }
+  addEventListener("pointerdown", alGesto);
+  addEventListener("keydown", alGesto);
+
+  function empezar() {
+    (window.requestIdleCallback || setTimeout)(() => pistas.forEach((p) => p.cargar()));
+  }
+  // El evento "load" solo se dispara una vez por documento: si la página ya había cargado
+  // (se vuelve a la portada sin recargarla), se pide directamente.
+  if (document.readyState === "complete") empezar();
+  else addEventListener("load", empezar, { once: true });
+
+  window.__cerrarSonidoPortada = function () {
+    removeEventListener("pointerdown", alGesto);
+    removeEventListener("keydown", alGesto);
+    ctx.close().catch(() => {});
+  };
 })();

@@ -5,7 +5,7 @@
     sessionStorage.setItem("lista", "{{ listaListado }}");
   } catch {}
 </script>
-<main class="listado">
+<main class="listado" data-seccion="{{ seccionListado }}" data-lista="{{ listaListado }}">
   <ul class="filas" data-scroll-infinito>
     {%- for proyecto in proyectos %}
     <li>

@@ -7,6 +7,10 @@
 (function () {
   if (!matchMedia("(hover: hover)").matches) return;
 
+  // Con navegación sin recarga (navegacion.js) este script puede arrancar varias veces en
+  // la misma página: se limpia la instancia anterior antes de crear la suya.
+  window.__pararSonido?.();
+
   const audio = new Audio();
   audio.preload = "none";
   let filaActual = null;
@@ -31,18 +35,29 @@
     bloqueado = false;
     sonar(filaActual);
   }
-  addEventListener("pointerdown", desbloquear);
-  addEventListener("keydown", desbloquear);
 
-  document.addEventListener("mouseover", (e) => {
+  function alPasar(e) {
     const fila = e.target.closest("[data-preview]");
     if (fila === filaActual) return;
     filaActual = fila;
     parar();
     sonar(fila);
-  });
-  document.documentElement.addEventListener("mouseleave", () => {
+  }
+  function alSalir() {
     filaActual = null;
     parar();
-  });
+  }
+
+  addEventListener("pointerdown", desbloquear);
+  addEventListener("keydown", desbloquear);
+  document.addEventListener("mouseover", alPasar);
+  document.documentElement.addEventListener("mouseleave", alSalir);
+
+  window.__pararSonido = function () {
+    parar();
+    removeEventListener("pointerdown", desbloquear);
+    removeEventListener("keydown", desbloquear);
+    document.removeEventListener("mouseover", alPasar);
+    document.documentElement.removeEventListener("mouseleave", alSalir);
+  };
 })();
