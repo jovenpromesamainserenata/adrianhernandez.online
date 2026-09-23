@@ -34,6 +34,12 @@
     clearInterval(temporizador);
     palabra.style.fontFamily = "";
   });
+  // Al llegar a la portada sin recargar (navegacion.js) con el ratón ya encima de "Image", el
+  // navegador no avisa hasta que el ratón se mueve: se mira aquí.
+  requestAnimationFrame(() => {
+    if (disparador.matches(":hover")) disparador.dispatchEvent(new MouseEvent("mouseenter"));
+  });
+
   // Al irse de la portada sin recargar (navegacion.js) la palabra desaparece sin que llegue el
   // mouseleave: se para aquí.
   (window.__limpiezas ||= []).push(() => clearInterval(temporizador));

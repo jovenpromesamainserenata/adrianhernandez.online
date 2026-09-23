@@ -23,6 +23,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&text={{ fuenteCaptcha | urlencode }}&display=block">
   {%- endif %}
   <link rel="stylesheet" href="/css/estilo.css">
+  <script>
+    // Captcha falso: sale en la primera página de la visita si es la portada o un listado (campo
+    // `captcha`), para que quien entra directo a /audio/ por un enlace dé el clic que deja sonar el
+    // hover (Adrián, 23/09/2026; antes solo salía en la portada). Una vez por visita: si ya se ha
+    // pasado, o si la visita empezó en una página sin captcha (una ficha, el About), no vuelve a salir.
+    try {
+      {%- if captcha %}
+      if (sessionStorage.getItem("captcha") === "hecho") document.documentElement.classList.add("captcha-visto");
+      {%- else %}
+      sessionStorage.setItem("captcha", "hecho");
+      {%- endif %}
+    } catch (e) {}
+  </script>
 </head>
 <body class="{{ claseBody }}">
   {%- if not sinAbout %}
@@ -34,6 +47,8 @@
     <a href="/about/">About</a>
   </div>
   {%- endif %}
+
+  {%- if captcha %}{% include "captcha.njk" %}{% endif %}
 
   {{ content | safe }}
 

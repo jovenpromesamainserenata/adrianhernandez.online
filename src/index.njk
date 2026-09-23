@@ -3,6 +3,7 @@ layout: base.njk
 permalink: /
 claseBody: pagina-portada
 sinAbout: true
+captcha: true
 scripts: [fuentes, captcha, sonido-portada, toque-portada]
 # Fuentes del efecto de "Image". Solo se descargan las letras de la palabra (text=Image).
 # Para cambiarlas: tocar esta lista y la de src/js/fuentes.js.
@@ -10,14 +11,6 @@ scripts: [fuentes, captcha, sonido-portada, toque-portada]
 fuentesGoogle: "family=Roboto+Mono&family=Archivo+Black&family=EB+Garamond&family=Saira&family=League+Script&family=Allerta&family=Carrois+Gothic&family=IBM+Plex+Sans+KR"
 fuenteCaptcha: "Image"
 ---
-<script>
-  // Si ya se ha pasado el captcha en esta visita, se quita antes de pintarlo:
-  // así no da un parpadeo al volver a la portada.
-  try {
-    if (sessionStorage.getItem("captcha") === "hecho") document.documentElement.classList.add("captcha-visto");
-  } catch {}
-</script>
-{% include "captcha.njk" %}
 <main class="portada">
   <a class="mitad" href="/audio/" data-audio="/media/portada/audio.mp3"><span>Audio</span></a>
   <a class="mitad mitad-image" href="/image/" data-audio="/media/portada/image.mp3"><span data-roll-fuentes>Image</span></a>

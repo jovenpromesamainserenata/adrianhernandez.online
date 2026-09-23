@@ -109,6 +109,16 @@
   addEventListener("pointerdown", desbloquear);
   addEventListener("keydown", desbloquear);
   document.addEventListener("mouseover", alPasar);
+
+  // Al llegar sin recargar (navegacion.js) con el ratón ya encima de una fila, el navegador no
+  // avisa hasta que el ratón se mueve: se mira aquí.
+  requestAnimationFrame(() => {
+    const fila = document.querySelector("[data-preview]:hover");
+    if (fila && !filaActual) {
+      filaActual = fila;
+      sonar(fila);
+    }
+  });
   document.documentElement.addEventListener("mouseleave", alSalir);
 
   // Descarga de todos los fragmentos de la página, de uno en uno, cuando el navegador está libre.

@@ -38,6 +38,20 @@
     return { desde: primera / buffer.sampleRate, hasta: (ultima + 1) / buffer.sampleRate };
   }
 
+  // Descomprimidos una sola vez por visita: al volver a la portada ya están listos.
+  const listos = (window.__portadaListos ||= new Map());
+  function descomprimido(url) {
+    if (!listos.has(url)) {
+      const promesa = fetch(url)
+        .then((r) => r.arrayBuffer())
+        .then((datos) => new Promise((ok, mal) => ctx.decodeAudioData(datos, ok, mal)))
+        .then((buffer) => ({ buffer, ...recorte(buffer) }));
+      promesa.catch(() => listos.delete(url));
+      listos.set(url, promesa);
+    }
+    return listos.get(url);
+  }
+
   function preparar(mitad) {
     const ganancia = ctx.createGain();
     ganancia.gain.value = 0;
@@ -95,6 +109,17 @@
       reloj = setTimeout(pausar, ESPERA_PAUSA);
     });
 
+    // Al llegar a la portada sin recargar (navegacion.js) con el ratón ya encima de una mitad,
+    // por ejemplo tras hacer clic en "Adrián Hernández", que cae justo sobre Audio: la mitad
+    // aparece debajo del ratón y el navegador no avisa con un mouseenter hasta que se mueve.
+    // El amarillo del CSS sí sale, así que el sonido tiene que salir también (Adrián, 23/09/2026).
+    requestAnimationFrame(() => {
+      if (!dentro && mitad.matches(":hover")) {
+        dentro = true;
+        sonar();
+      }
+    });
+
     return {
       activarSiDentro() {
         if (dentro) sonar();
@@ -108,9 +133,7 @@
       },
       async cargar() {
         try {
-          const datos = await fetch(mitad.dataset.audio).then((r) => r.arrayBuffer());
-          buffer = await ctx.decodeAudioData(datos);
-          ({ desde, hasta } = recorte(buffer));
+          ({ buffer, desde, hasta } = await descomprimido(mitad.dataset.audio));
           if (dentro) sonar();
         } catch {
           // Sin audio en esta mitad; el resto de la web no se entera.
