@@ -101,6 +101,11 @@
       activarSiDentro() {
         if (dentro) sonar();
       },
+      pararYa() {
+        clearTimeout(reloj);
+        volumen(0);
+        pausar();
+      },
       async cargar() {
         try {
           const datos = await fetch(mitad.dataset.audio).then((r) => r.arrayBuffer());
@@ -135,6 +140,9 @@
   window.__cerrarSonidoPortada = function () {
     removeEventListener("pointerdown", alGesto);
     removeEventListener("keydown", alGesto);
+    // Se para cada pista a mano (no todos los navegadores cortan el sonido al instante con
+    // ctx.close(); algunos lo van apagando un momento, Adrián 23/09/2026) y ya luego se cierra.
+    pistas.forEach((p) => p.pararYa());
     ctx.close().catch(() => {});
   };
 })();
