@@ -175,6 +175,14 @@ layout: base.njk
 <script src="/js/tarjeta.js"></script>
 <script src="/js/reproductor.js"></script>
 <script>
+  // Imagen con hover: en pantallas táctiles, un toque cambia a la segunda y otro vuelve a la primera.
+  if (matchMedia("(hover: none)").matches) {
+    document.querySelectorAll(".media-hover").forEach(function (el) {
+      el.addEventListener("click", function () { el.classList.toggle("volteada"); });
+    });
+  }
+</script>
+<script>
   // También con las flechas del teclado. Con click() y no cambiando location, para que pase
   // por la navegación sin recarga (navegacion.js).
   (function () {

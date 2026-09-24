@@ -358,7 +358,7 @@ html:not([data-desde="image"]) .pagina-proyecto .barra-image { display: none; }
 .media .hueco { aspect-ratio: var(--miniatura-proporcion); }
 
 /* Imagen con hover: la segunda ocupa el mismo sitio que la primera (misma proporción) y aparece
-   encima con el ratón. Solo con ratón: en pantallas táctiles se ve la primera (Adrián, 21/09/2026). */
+   encima con el ratón. En pantallas táctiles se cambia de una a otra con un toque (Adrián, 24/09/2026). */
 .media-hover { position: relative; }
 .media-hover .hover-cara {
   position: absolute;
@@ -369,6 +369,10 @@ html:not([data-desde="image"]) .pagina-proyecto .barra-image { display: none; }
 }
 @media (hover: hover) {
   .media-hover:hover .hover-cara { opacity: 1; }
+}
+@media (hover: none) {
+  .media-hover { cursor: pointer; }
+  .media-hover.volteada .hover-cara { opacity: 1; }
 }
 
 /* Cada vídeo lleva su proporción en --proporcion. Mismo ancho que las imágenes
