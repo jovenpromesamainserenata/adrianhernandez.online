@@ -113,10 +113,28 @@
     "duracion": 34,
     "mb": 18.4
   },
+  "pat-equilux-ss27/video-01": {
+    "ancho": 1920,
+    "alto": 1080,
+    "duracion": 68,
+    "mb": 41.1
+  },
+  "pat-equilux-ss27/video-02": {
+    "ancho": 1920,
+    "alto": 1080,
+    "duracion": 75.6,
+    "mb": 46.5
+  },
   "plutos-6th-birthday/video-01": {
     "ancho": 1920,
     "alto": 2400,
     "duracion": 29.8,
     "mb": 20
+  },
+  "que-diran/video-01": {
+    "ancho": 3240,
+    "alto": 2160,
+    "duracion": 171.6,
+    "mb": 212.4
   }
 }

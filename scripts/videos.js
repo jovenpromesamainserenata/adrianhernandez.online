@@ -15,6 +15,14 @@ const MANIFIESTO = "src/_data/videos.json";
 const ANCHO_MAX = 1920;
 const EXTENSIONES = [".mp4", ".mov", ".m4v"];
 
+// Vídeos que salen al doble de tamaño para no perder color (Adrián, 05/11/2026, por Qué dirán).
+// La web solo admite vídeo 4:2:0: un solo color por cada cuadrado de 2 × 2 píxeles. En originales con
+// textura fina de color (líneas y puntos, como Qué dirán) eso apaga los rojos y oscurece un poco la imagen.
+// Al doblar el tamaño, cada cuadrado de 2 × 2 es un único píxel del original, así que el color llega entero.
+// Se dobla por vecino más próximo (cada píxel se copia tal cual, sin inventar detalle) y se le da más
+// margen de bitrate porque son cuatro veces más píxeles.
+const DOBLE = new Set(["que-diran/video-01"]);
+
 function recorrer(carpeta) {
   if (!fs.existsSync(carpeta)) return [];
   return fs.readdirSync(carpeta, { withFileTypes: true }).flatMap((e) => {
@@ -67,11 +75,15 @@ for (const archivo of recorrer(ORIGEN)) {
 
   if (masNuevo(archivo, video)) {
     console.log(`Comprimiendo ${sinExt}...`);
+    const doble = DOBLE.has(sinExt);
     ejecutar([
       "-i", archivo,
       "-map", "0:v:0", "-map", "0:a:0?",
-      "-vf", `scale='min(${ANCHO_MAX},iw)':-2:flags=lanczos,format=yuv420p`,
-      "-c:v", "libx264", "-preset", "slow", "-crf", "21", "-maxrate", "5M", "-bufsize", "10M",
+      "-vf", doble
+        ? "scale=iw*2:ih*2:flags=neighbor,format=yuv420p"
+        : `scale='min(${ANCHO_MAX},iw)':-2:flags=lanczos,format=yuv420p`,
+      "-c:v", "libx264", "-preset", "slow", "-crf", "21",
+      "-maxrate", doble ? "12M" : "5M", "-bufsize", doble ? "24M" : "10M",
       ...audioSegunOrigen(archivo),
       // Pone el índice al principio del archivo para que empiece a reproducirse sin descargarlo entero.
       "-movflags", "+faststart",

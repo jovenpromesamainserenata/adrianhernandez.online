@@ -503,6 +503,15 @@
     "ancho": 1920,
     "alto": 1080
   },
+  "pat-equilux-ss27/portada": {
+    "anchos": [
+      600,
+      1200,
+      1920
+    ],
+    "ancho": 1920,
+    "alto": 1080
+  },
   "plutos-6th-birthday/portada": {
     "anchos": [
       600,
@@ -538,6 +547,15 @@
     ],
     "ancho": 1600,
     "alto": 1200
+  },
+  "que-diran/portada": {
+    "anchos": [
+      600,
+      1200,
+      1620
+    ],
+    "ancho": 1620,
+    "alto": 1080
   },
   "recreo/portada": {
     "anchos": [
