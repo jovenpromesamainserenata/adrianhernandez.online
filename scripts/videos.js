@@ -23,6 +23,10 @@ const EXTENSIONES = [".mp4", ".mov", ".m4v"];
 // margen de bitrate porque son cuatro veces más píxeles.
 const DOBLE = new Set(["que-diran/video-01"]);
 
+// Segundos que se quitan del principio (imagen y sonido a la vez, para que no se desincronicen).
+// Qué dirán empezaba con un fotograma negro (0,04 s a 25 fps) y el póster salía negro (Adrián, 05/11/2026).
+const RECORTE_INICIO = { "que-diran/video-01": 0.04 };
+
 function recorrer(carpeta) {
   if (!fs.existsSync(carpeta)) return [];
   return fs.readdirSync(carpeta, { withFileTypes: true }).flatMap((e) => {
@@ -77,6 +81,7 @@ for (const archivo of recorrer(ORIGEN)) {
     console.log(`Comprimiendo ${sinExt}...`);
     const doble = DOBLE.has(sinExt);
     ejecutar([
+      ...(RECORTE_INICIO[sinExt] ? ["-ss", String(RECORTE_INICIO[sinExt])] : []),
       "-i", archivo,
       "-map", "0:v:0", "-map", "0:a:0?",
       "-vf", doble
