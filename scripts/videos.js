@@ -101,7 +101,10 @@ for (const archivo of recorrer(ORIGEN)) {
   }
 
   const mb = (fs.statSync(video).size / 1e6).toFixed(1);
-  manifiesto[sinExt] = { ...medidas(video), mb: Number(mb) };
+  // `version` sale de la fecha del vídeo comprimido: cambia solo cuando se recomprime, y la web la
+  // añade a la dirección (?v=) para que el navegador no se quede con la versión vieja.
+  const version = Math.round(fs.statSync(video).mtimeMs / 1000).toString(36);
+  manifiesto[sinExt] = { ...medidas(video), mb: Number(mb), version };
   console.log(`${sinExt}: ${(fs.statSync(archivo).size / 1e6).toFixed(0)} MB → ${mb} MB`);
 }
 

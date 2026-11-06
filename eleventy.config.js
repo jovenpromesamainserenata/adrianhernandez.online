@@ -171,9 +171,12 @@ module.exports = function (eleventyConfig) {
     const info = manifiesto[ruta];
     if (!info) return `<div class="media"><div class="hueco" style="aspect-ratio: 16/9" role="img" aria-label="${escapar(titulo)}"></div></div>`;
     const url = `${BASE_VIDEOS}/${ruta}`;
+    // `?v=` cambia cada vez que se recomprime el vídeo: con el mismo nombre de archivo, el navegador
+    // seguía enseñando la versión que ya tenía guardada (pasó con el póster de Qué dirán, 06/11/2026).
+    const v = info.version ? `?v=${info.version}` : "";
     return `<div class="media reproductor" style="--proporcion: ${info.ancho}/${info.alto}" data-reproductor>
     <div class="reproductor-pantalla">
-      <video src="${url}.mp4" poster="${url}.jpg" preload="none" playsinline aria-label="${escapar(titulo)}"></video>
+      <video src="${url}.mp4${v}" poster="${url}.jpg${v}" preload="none" playsinline aria-label="${escapar(titulo)}"></video>
       <div class="reproductor-marca" aria-hidden="true">${ICONOS.marca}</div>
       <div class="reproductor-controles">
         <button class="reproductor-boton" type="button" data-pantalla aria-label="Full screen">${ICONOS.pantalla}</button>

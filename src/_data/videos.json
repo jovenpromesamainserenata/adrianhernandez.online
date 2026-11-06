@@ -3,138 +3,161 @@
     "ancho": 1920,
     "alto": 720,
     "duracion": 153.5,
-    "mb": 61.4
+    "mb": 61.4,
+    "version": "tlkfsn"
   },
   "4ever/video-02": {
     "ancho": 1920,
     "alto": 720,
     "duracion": 80,
-    "mb": 39.3
+    "mb": 39.3,
+    "version": "tlkft4"
   },
   "bomarzo-tremor/video-01": {
     "ancho": 960,
     "alto": 720,
     "duracion": 11.8,
-    "mb": 2.8
+    "mb": 2.8,
+    "version": "tlqdhw"
   },
   "bruised-by-baby-bullets/video-01": {
     "ancho": 640,
     "alto": 480,
     "duracion": 33.2,
-    "mb": 4.1
+    "mb": 4.1,
+    "version": "tlkft6"
   },
   "desigual/video-01": {
     "ancho": 1080,
     "alto": 1920,
     "duracion": 17.5,
-    "mb": 11
+    "mb": 11,
+    "version": "tlptpg"
   },
   "dior-sauvage/video-01": {
     "ancho": 1080,
     "alto": 1920,
     "duracion": 12.3,
-    "mb": 5.1
+    "mb": 5.1,
+    "version": "tlptpj"
   },
   "hoff-city-mkii/video-01": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 6.2,
-    "mb": 4.3
+    "mb": 4.3,
+    "version": "tlptpl"
   },
   "hoff-city-mkii/video-02": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 3.8,
-    "mb": 2.9
+    "mb": 2.9,
+    "version": "tlptpm"
   },
   "hoff-city-mkii/video-03": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 9.4,
-    "mb": 6.4
+    "mb": 6.4,
+    "version": "tlptpp"
   },
   "in-the-flesh/video-01": {
     "ancho": 1080,
     "alto": 1920,
     "duracion": 39.4,
-    "mb": 14
+    "mb": 14,
+    "version": "tlptpv"
   },
   "joven-promesa-main-serenata/video-01": {
     "ancho": 1440,
     "alto": 1080,
     "duracion": 18.5,
-    "mb": 12.5
+    "mb": 12.5,
+    "version": "tlkftc"
   },
   "joven-promesa-main-serenata/video-02": {
     "ancho": 1920,
     "alto": 1246,
     "duracion": 15.3,
-    "mb": 1.7
+    "mb": 1.7,
+    "version": "tlkftf"
   },
   "joven-promesa-main-serenata/video-03": {
     "ancho": 1440,
     "alto": 1080,
     "duracion": 34,
-    "mb": 11.8
+    "mb": 11.8,
+    "version": "tlkftm"
   },
   "juggler-duties/video-01": {
     "ancho": 640,
     "alto": 480,
     "duracion": 40,
-    "mb": 6
+    "mb": 6,
+    "version": "tlqaev"
   },
   "pat-equilux-fw26/video-01": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 24,
-    "mb": 13.2
+    "mb": 13.2,
+    "version": "tlkftt"
   },
   "pat-equilux-fw26/video-02": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 16,
-    "mb": 3.2
+    "mb": 3.2,
+    "version": "tlkftx"
   },
   "pat-equilux-fw26/video-03": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 24,
-    "mb": 15.9
+    "mb": 15.9,
+    "version": "tlkfu5"
   },
   "pat-equilux-fw26/video-04": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 15.4,
-    "mb": 6.3
+    "mb": 6.3,
+    "version": "tlkfu9"
   },
   "pat-equilux-fw26/video-05": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 34,
-    "mb": 18.4
+    "mb": 18.4,
+    "version": "tlkful"
   },
   "pat-equilux-ss27/video-01": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 68,
-    "mb": 41.1
+    "mb": 41.1,
+    "version": "to1rzg"
   },
   "pat-equilux-ss27/video-02": {
     "ancho": 1920,
     "alto": 1080,
     "duracion": 75.6,
-    "mb": 46.5
+    "mb": 46.5,
+    "version": "to1s01"
   },
   "plutos-6th-birthday/video-01": {
     "ancho": 1920,
     "alto": 2400,
     "duracion": 29.8,
-    "mb": 20
+    "mb": 20,
+    "version": "tlptq8"
   },
   "que-diran/video-01": {
     "ancho": 3240,
     "alto": 2160,
     "duracion": 171.6,
-    "mb": 213.6
+    "mb": 213.6,
+    "version": "to1wz8"
   }
 }
